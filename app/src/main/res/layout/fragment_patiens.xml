@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.patients.PatientsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Patients" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonAddPatient"
@@ -20,5 +16,11 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_baseline_person_add_24"
         android:contentDescription="Add patient" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPatients"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_patient"/>
 
 </FrameLayout>
