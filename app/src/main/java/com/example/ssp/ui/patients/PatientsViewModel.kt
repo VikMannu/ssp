@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ssp.model.Patient
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PatientsViewModel : ViewModel() {
     private val _arrayPatients = MutableLiveData<ArrayList<Patient>>()
@@ -32,6 +34,28 @@ class PatientsViewModel : ViewModel() {
     }
 
     fun getPatient(position: Int): Patient {
-        return listAllPatients[position]
+        return this.listAllPatients[position]
+    }
+
+    fun onQueryTextChange(newText: String): Boolean {
+        with(this.listAllPatientsFilter) { clear() }
+        val searchText = newText.lowercase(Locale.getDefault())
+        if (searchText.isNotEmpty()) {
+            this.listAllPatients.forEach {
+                val ci = it.cedula.lowercase(Locale.getDefault())
+                val name =
+                    "${it.nombre} ${it.apellido}".lowercase(
+                        Locale.getDefault()
+                    )
+                if (ci.contains(searchText) || name.contains(searchText)) {
+                    this.listAllPatientsFilter.add(it)
+                }
+            }
+        } else {
+            this.listAllPatientsFilter.clear()
+            this.listAllPatientsFilter.addAll(this.listAllPatients)
+        }
+        this._arrayPatients.value = this.listAllPatientsFilter
+        return false
     }
 }

@@ -20,18 +20,18 @@ class PatientAdapter(
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         @SuppressLint("SetTextI18n")
         fun bindItem(patient: Patient) {
-            binding.textViewName.text = "${patient.nombre} ${patient.apellido}"
-            binding.textViewCI.text = patient.cedula
-            binding.textViewNumberPhone.text = patient.telefono
+            this.binding.textViewName.text = "${patient.nombre} ${patient.apellido}"
+            this.binding.textViewCI.text = patient.cedula
+            this.binding.textViewNumberPhone.text = patient.telefono
         }
 
         init {
-            itemView.setOnClickListener(this)
+            this.itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            val position = adapterPosition
-            onItemClicked(position)
+            val position = this.adapterPosition
+            this.onItemClicked(position)
         }
 
     }

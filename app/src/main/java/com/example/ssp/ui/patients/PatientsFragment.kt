@@ -2,10 +2,10 @@ package com.example.ssp.ui.patients
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -35,6 +35,18 @@ class PatientsFragment : Fragment() {
         this.binding = FragmentPatiensBinding.inflate(inflater, container, false)
 
         this.binding.recyclerViewPatients.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        val searchView = this.binding.searchViewPatients
+
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return viewModel.onQueryTextChange(query)
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return viewModel.onQueryTextChange(newText)
+            }
+        })
 
         return this.binding.root
     }
