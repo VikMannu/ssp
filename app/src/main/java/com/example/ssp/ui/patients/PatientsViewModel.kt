@@ -30,4 +30,8 @@ class PatientsViewModel : ViewModel() {
 
         return list
     }
+
+    fun getPatient(position: Int): Patient {
+        return listAllPatients[position]
+    }
 }
