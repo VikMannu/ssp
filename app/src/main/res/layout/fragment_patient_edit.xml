@@ -32,35 +32,37 @@
         app:layout_constraintTop_toBottomOf="@id/textViewTitle">
 
         <EditText
-            android:id="@+id/textViewName"
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
             android:hint="Nombre"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="textPersonName"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewSurname"
+            app:layout_constraintBottom_toTopOf="@+id/editTextSurname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/textViewSurname"
+            android:id="@+id/editTextSurname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Apellido"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:inputType="textPersonName"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewNumberPhone"
+            app:layout_constraintBottom_toTopOf="@+id/editTextNumberPhone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewName" />
+            app:layout_constraintTop_toBottomOf="@id/editTextName" />
 
         <EditText
-            android:id="@+id/textViewNumberPhone"
+            android:id="@+id/editTextNumberPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
@@ -69,13 +71,13 @@
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
             android:inputType="phone"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
+            app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewSurname" />
+            app:layout_constraintTop_toBottomOf="@id/editTextSurname" />
 
         <EditText
-            android:id="@+id/textViewEmail"
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
@@ -84,13 +86,13 @@
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
             android:inputType="textEmailAddress"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewCI"
+            app:layout_constraintBottom_toTopOf="@+id/editTextCI"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewNumberPhone" />
+            app:layout_constraintTop_toBottomOf="@id/editTextNumberPhone" />
 
         <EditText
-            android:id="@+id/textViewCI"
+            android:id="@+id/editTextCI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
@@ -99,13 +101,13 @@
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
             android:inputType="number"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewRuc"
+            app:layout_constraintBottom_toTopOf="@+id/editTextRuc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewEmail" />
+            app:layout_constraintTop_toBottomOf="@id/editTextEmail" />
 
         <EditText
-            android:id="@+id/textViewRuc"
+            android:id="@+id/editTextRuc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
@@ -114,28 +116,29 @@
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
             android:inputType="number"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewTypePerson"
+            app:layout_constraintBottom_toTopOf="@+id/editTextTypePerson"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewCI" />
+            app:layout_constraintTop_toBottomOf="@id/editTextCI" />
 
 
         <EditText
-            android:id="@+id/textViewTypePerson"
+            android:id="@+id/editTextTypePerson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
             android:hint="Tipo Persona"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="textPersonName"
             android:textSize="@dimen/text_size_details_patient"
-            app:layout_constraintBottom_toTopOf="@+id/textViewBirthday"
+            app:layout_constraintBottom_toTopOf="@+id/editTextBirthday"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewRuc" />
+            app:layout_constraintTop_toBottomOf="@id/editTextRuc" />
 
         <EditText
-            android:id="@+id/textViewBirthday"
+            android:id="@+id/editTextBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
@@ -144,10 +147,14 @@
             android:drawablePadding="@dimen/drawable_padding_patient_Edit"
             android:inputType="date"
             android:textSize="@dimen/text_size_details_patient"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewTypePerson" />
+            app:layout_constraintTop_toBottomOf="@id/editTextTypePerson" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

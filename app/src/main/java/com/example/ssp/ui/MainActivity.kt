@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import com.example.ssp.R
 import com.example.ssp.databinding.ActivityMainBinding
 import com.example.ssp.ui.dataSheet.DataSheetFragment
+import com.example.ssp.ui.patients.PatientDetailsFragment
+import com.example.ssp.ui.patients.PatientEditFragment
 import com.example.ssp.ui.patients.PatientsFragment
 import com.example.ssp.ui.reservations.ReservationsFragment
 
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reservations = ReservationsFragment()
+        val reservations = PatientEditFragment()
         val patients = PatientsFragment()
         val dataSheet = DataSheetFragment()
 
