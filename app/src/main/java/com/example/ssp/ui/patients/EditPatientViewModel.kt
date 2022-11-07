@@ -2,6 +2,6 @@ package com.example.ssp.ui.patients
 
 import androidx.lifecycle.ViewModel
 
-class PatientEditViewModel : ViewModel() {
+class EditPatientViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

@@ -8,34 +8,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import com.example.ssp.R
-import com.example.ssp.databinding.FragmentPatientDetailsBinding
-import com.example.ssp.databinding.FragmentPatientEditBinding
+import com.example.ssp.databinding.FragmentEditPatientBinding
 import com.example.ssp.model.Patient
 
-class PatientEditFragment : Fragment() {
+class EditPatientFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PatientEditFragment()
+        fun newInstance() = EditPatientFragment()
     }
 
-    private lateinit var viewModel: PatientEditViewModel
-    private lateinit var binding: FragmentPatientEditBinding
+    private lateinit var viewModel: EditPatientViewModel
+    private lateinit var binding: FragmentEditPatientBinding
     private lateinit var patient: Patient
-    private val myCalendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        this.binding = FragmentPatientEditBinding.inflate(inflater, container, false)
+        this.binding = FragmentEditPatientBinding.inflate(inflater, container, false)
 
         this.arguments?.let {
             val args = PatientDetailsFragmentArgs.fromBundle(it)
             this.patient = args.patient
         }
 
+        this.editTextBirthDayConfig()
+
+        return this.binding.root
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(EditPatientViewModel::class.java)
+        // TODO: Use the ViewModel
+    }
+
+    private fun editTextBirthDayConfig() {
         this.binding.editTextBirthday.setOnClickListener {
 
             // on below line we are getting
@@ -71,15 +80,5 @@ class PatientEditFragment : Fragment() {
             // to display our date picker dialog.
             datePickerDialog?.show()
         }
-
-        return this.binding.root
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PatientEditViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }

@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/patientEditFragment2"
-        android:name="com.example.ssp.ui.patients.PatientEditFragment"
+        android:name="com.example.ssp.ui.patients.EditPatientFragment"
         android:label="Editar Paciente" >
         <argument
             android:name="patient"
