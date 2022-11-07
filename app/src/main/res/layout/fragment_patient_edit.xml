@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.patients.PatientDetailsFragment">
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif-monospace"
+        android:text="Información Adicional"
+        android:textAlignment="center"
+        android:textColor="@color/blue_500"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayoutDetailsInfo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutDetailsInfo"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayoutButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle">
+
+        <EditText
+            android:id="@+id/textViewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="Nombre"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSurname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/textViewSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apellido"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewNumberPhone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewName" />
+
+        <EditText
+            android:id="@+id/textViewNumberPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="Teléfono"
+            android:drawableStart="@drawable/ic_baseline_phone_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="phone"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewSurname" />
+
+        <EditText
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="Email"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCI"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewNumberPhone" />
+
+        <EditText
+            android:id="@+id/textViewCI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="Cédula"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="number"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewRuc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewEmail" />
+
+        <EditText
+            android:id="@+id/textViewRuc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="RUC"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="number"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTypePerson"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCI" />
+
+
+        <EditText
+            android:id="@+id/textViewTypePerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="Tipo Persona"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewBirthday"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewRuc" />
+
+        <EditText
+            android:id="@+id/textViewBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_horizontal_edit_patient"
+            android:hint="Fecha de Nacimiento"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/drawable_padding_patient_Edit"
+            android:inputType="date"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTypePerson" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayoutDetailsInfo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="Cancelar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/buttonConfirm"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/buttonCancel"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

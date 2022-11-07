@@ -1,15 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.patients.PatientDetailsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Hello World" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif-monospace"
+        android:text="Información Adicional"
+        android:textAlignment="center"
+        android:textColor="@color/blue_500"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayoutDetailsInfo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutDetailsInfo"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayoutButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle">
+
+        <TextView
+            android:id="@+id/textViewInfoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Nombre:"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoSurname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewSurname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Victor Manuel" />
+
+        <TextView
+            android:id="@+id/textViewInfoSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Apellido:"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoNumberPhone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoName" />
+
+        <TextView
+            android:id="@+id/textViewSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewNumberPhone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewName"
+            tools:text="Ayala Acosta" />
+
+        <TextView
+            android:id="@+id/textViewInfoNumberPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Teléfono:"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoSurname" />
+
+        <TextView
+            android:id="@+id/textViewNumberPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewSurname"
+            tools:text="0982485713" />
+
+        <TextView
+            android:id="@+id/textViewInfoEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Email:"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoCI"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoNumberPhone" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCI"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewNumberPhone"
+            tools:text="victor.ayala2a@gmail.com" />
+
+        <TextView
+            android:id="@+id/textViewInfoCI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Cédula:"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoRuc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoEmail" />
+
+        <TextView
+            android:id="@+id/textViewCI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewRuc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+            tools:text="4692858" />
+
+        <TextView
+            android:id="@+id/textViewInfoRuc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="RUC:"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoTypePerson"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoCI" />
+
+        <TextView
+            android:id="@+id/textViewRuc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTypePerson"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCI"
+            tools:text="4692858-2" />
+
+        <TextView
+            android:id="@+id/textViewInfoTypePerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Tipo Persona:"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textViewInfoBirthday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoRuc" />
+
+        <TextView
+            android:id="@+id/textViewTypePerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toTopOf="@+id/textViewBirthday"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewRuc"
+            tools:text="FISICA" />
+
+        <TextView
+            android:id="@+id/textViewInfoBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:text="Fecha de nacimiento:"
+            android:textSize="@dimen/text_size_details_patient"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewInfoTypePerson" />
+
+        <TextView
+            android:id="@+id/textViewBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="34dp"
+            android:textSize="@dimen/text_size_details_patient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTypePerson"
+            tools:text="1998-05-09" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayoutDetailsInfo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="Editar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/buttonDelete"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:text="Eliminar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/buttonEdit"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

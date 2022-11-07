@@ -4,19 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ssp.R
 import com.example.ssp.adapter.PatientAdapter
 import com.example.ssp.databinding.FragmentPatiensBinding
-import com.example.ssp.ui.MainActivity
 
 class PatientsFragment : Fragment() {
 

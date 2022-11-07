@@ -2,10 +2,9 @@ package com.example.ssp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.fragment.app.Fragment
 import com.example.ssp.R
 import com.example.ssp.databinding.ActivityMainBinding
-import androidx.fragment.app.Fragment
 import com.example.ssp.ui.dataSheet.DataSheetFragment
 import com.example.ssp.ui.patients.PatientsFragment
 import com.example.ssp.ui.reservations.ReservationsFragment
