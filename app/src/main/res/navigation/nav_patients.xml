@@ -3,35 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_patients"
-    app:startDestination="@id/patientsFragment">
+    app:startDestination="@id/listPatientFragment">
 
     <fragment
-        android:id="@+id/patientsFragment"
-        android:name="com.example.ssp.ui.patients.PatientsFragment"
-        android:label="Pacientes"
-        tools:layout="@layout/fragment_patiens">
+        android:id="@+id/listPatientFragment"
+        android:name="com.example.ssp.ui.patients.list.ListPatientFragment"
+        android:label="Lista Pavcientes"
+        tools:layout="@layout/fragment_list_patient">
         <action
-            android:id="@+id/action_patientsFragment_to_patientDetailsFragment"
+            android:id="@+id/action_listPatientFragment_to_patientDetailsFragment"
             app:destination="@id/patientDetailsFragment" />
+        <action
+            android:id="@+id/action_listPatientFragment_to_addPatientFragment"
+            app:destination="@id/addPatientFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientDetailsFragment"
-        android:name="com.example.ssp.ui.patients.PatientDetailsFragment"
+        android:name="com.example.ssp.ui.patients.details.PatientDetailsFragment"
         android:label="Detalles del Paciente"
         tools:layout="@layout/fragment_patient_details">
         <argument
             android:name="patient"
             app:argType="com.example.ssp.model.Patient" />
         <action
-            android:id="@+id/action_patientDetailsFragment_to_patientEditFragment2"
-            app:destination="@id/patientEditFragment2" />
+            android:id="@+id/action_patientDetailsFragment_to_editPatientFragment"
+            app:destination="@id/editPatientFragment" />
     </fragment>
     <fragment
-        android:id="@+id/patientEditFragment2"
-        android:name="com.example.ssp.ui.patients.EditPatientFragment"
-        android:label="Editar Paciente" >
+        android:id="@+id/editPatientFragment"
+        android:name="com.example.ssp.ui.patients.edit.EditPatientFragment"
+        android:label="Editar Paciente"
+        tools:layout="@layout/fragment_edit_patient" >
         <argument
             android:name="patient"
             app:argType="com.example.ssp.model.Patient" />
     </fragment>
+    <fragment
+        android:id="@+id/addPatientFragment"
+        android:name="com.example.ssp.ui.patients.add.AddPatientFragment"
+        android:label="Agregar Paciente"
+        tools:layout="@layout/fragment_add_patient"/>
 </navigation>

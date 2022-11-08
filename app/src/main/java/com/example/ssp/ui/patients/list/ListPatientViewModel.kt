@@ -1,4 +1,4 @@
-package com.example.ssp.ui.patients
+package com.example.ssp.ui.patients.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.example.ssp.model.Patient
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PatientsViewModel : ViewModel() {
+class ListPatientViewModel : ViewModel() {
     private val _arrayPatients = MutableLiveData<ArrayList<Patient>>()
     val arrayPatients: LiveData<ArrayList<Patient>>
         get() = _arrayPatients

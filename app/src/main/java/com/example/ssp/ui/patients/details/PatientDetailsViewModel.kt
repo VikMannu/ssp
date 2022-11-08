@@ -1,4 +1,4 @@
-package com.example.ssp.ui.patients
+package com.example.ssp.ui.patients.details
 
 import androidx.lifecycle.ViewModel
 

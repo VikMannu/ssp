@@ -1,13 +1,12 @@
-package com.example.ssp.ui.patients
+package com.example.ssp.ui.patients.details
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ssp.R
-import com.example.ssp.databinding.FragmentPatiensBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import com.example.ssp.databinding.FragmentPatientDetailsBinding
 import com.example.ssp.model.Patient
 
@@ -32,13 +31,26 @@ class PatientDetailsFragment : Fragment() {
             this.patient = args.patient
         }
 
+        this.binding.textViewName.text = this.patient.nombre
+        this.binding.textViewSurname.text = this.patient.apellido
+        this.binding.textViewNumberPhone.text = this.patient.telefono
+        this.binding.textViewEmail.text = this.patient.email
+        this.binding.textViewCI.text = this.patient.cedula
+        this.binding.textViewRuc.text = this.patient.ruc
+        this.binding.textViewTypePerson.text = this.patient.tipoPersona
+        this.binding.textViewBirthday.text = this.patient.fechaNacimiento
+
+        this.binding.buttonEdit.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(PatientDetailsFragmentDirections.actionPatientDetailsFragmentToEditPatientFragment(this.patient))
+        }
+
         return this.binding.root
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PatientDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[PatientDetailsViewModel::class.java]
         // TODO: Use the ViewModel
     }
 

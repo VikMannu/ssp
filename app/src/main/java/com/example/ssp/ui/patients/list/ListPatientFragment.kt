@@ -1,31 +1,33 @@
-package com.example.ssp.ui.patients
+package com.example.ssp.ui.patients.list
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.adapter.PatientAdapter
-import com.example.ssp.databinding.FragmentPatiensBinding
+import com.example.ssp.databinding.FragmentListPatientBinding
+import com.example.ssp.ui.patients.add.AddPatientFragment
 
-class PatientsFragment : Fragment() {
+class ListPatientFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PatientsFragment()
+        fun newInstance() = ListPatientFragment()
     }
 
-    private lateinit var viewModel: PatientsViewModel
-    private lateinit var binding: FragmentPatiensBinding
+    private lateinit var viewModel: ListPatientViewModel
+    private lateinit var binding: FragmentListPatientBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        setHasOptionsMenu(true)
-        this.binding = FragmentPatiensBinding.inflate(inflater, container, false)
+    ): View? {
+        this.binding = FragmentListPatientBinding.inflate(inflater, container, false)
 
         this.binding.recyclerViewPatients.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
@@ -41,13 +43,17 @@ class PatientsFragment : Fragment() {
             }
         })
 
+        this.binding.floatingButtonAddPatient.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToAddPatientFragment())
+        }
+
         return this.binding.root
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PatientsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ListPatientViewModel::class.java]
 
         viewModel.arrayPatients.observe(viewLifecycleOwner) {
             val adapter = PatientAdapter(it) {position -> onListItemClick(position) }
@@ -56,7 +62,7 @@ class PatientsFragment : Fragment() {
     }
 
     private fun onListItemClick(position: Int) {
-        NavHostFragment.findNavController(this).navigate(PatientsFragmentDirections.actionPatientsFragmentToPatientDetailsFragment(viewModel.getPatient(position)))
+        NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(viewModel.getPatient(position)))
     }
 
     private fun hide() {

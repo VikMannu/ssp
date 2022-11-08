@@ -1,4 +1,4 @@
-package com.example.ssp.ui.patients
+package com.example.ssp.ui.patients.edit
 
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.ssp.databinding.FragmentEditPatientBinding
 import com.example.ssp.model.Patient
+import com.example.ssp.ui.patients.details.PatientDetailsFragmentArgs
 
 class EditPatientFragment : Fragment() {
 
@@ -40,7 +41,7 @@ class EditPatientFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditPatientViewModel::class.java)
+        viewModel = ViewModelProvider(this)[EditPatientViewModel::class.java]
         // TODO: Use the ViewModel
     }
 

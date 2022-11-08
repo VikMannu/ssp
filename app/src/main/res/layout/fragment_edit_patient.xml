@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.patients.PatientDetailsFragment">
+    tools:context=".ui.patients.details.PatientDetailsFragment">
 
 
     <TextView
@@ -167,26 +167,15 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
+            android:id="@+id/buttonConfirm"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/darker_gray"
-            android:text="Cancelar"
+            android:layout_marginHorizontal="100dp"
+            android:text="Actualizar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/buttonConfirm"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/buttonConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Confirmar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/buttonCancel"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

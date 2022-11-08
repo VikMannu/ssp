@@ -1,4 +1,4 @@
-package com.example.ssp.ui.patients
+package com.example.ssp.ui.patients.add
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ssp.R
 import com.example.ssp.databinding.FragmentAddPatientBinding
-import com.example.ssp.databinding.FragmentEditPatientBinding
 
 class AddPatientFragment : Fragment() {
 
@@ -31,7 +29,7 @@ class AddPatientFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddPatientViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AddPatientViewModel::class.java]
         // TODO: Use the ViewModel
     }
 
