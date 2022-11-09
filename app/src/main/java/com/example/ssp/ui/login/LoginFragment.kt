@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.ssp.databinding.FragmentLoginBinding
-import com.example.ssp.ui.MainActivity
+import com.example.ssp.ui.home.HomeActivity
 
 class LoginFragment : Fragment() {
 
@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
             if (checkAllFields()) {
                 it.visibility = View.INVISIBLE
                 binding.loading.visibility = View.VISIBLE
-                val intent = Intent(activity, MainActivity::class.java)
+                val intent = Intent(activity, HomeActivity::class.java)
                 requireActivity().startActivity(intent)
             }
         }

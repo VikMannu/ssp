@@ -5,15 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
-
-  <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolBarMain"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+    tools:context=".ui.home.HomeActivity">
 
   <include
       android:id="@+id/content_main"
-      layout="@layout/content_main" />
+      layout="@layout/content_home" />
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>

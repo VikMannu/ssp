@@ -1,6 +1,7 @@
 package com.example.ssp.ui.patients.list
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.adapter.PatientAdapter
 import com.example.ssp.databinding.FragmentListPatientBinding
-import com.example.ssp.ui.patients.add.AddPatientFragment
 
 class ListPatientFragment : Fragment() {
 
@@ -46,7 +46,6 @@ class ListPatientFragment : Fragment() {
         this.binding.floatingButtonAddPatient.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToAddPatientFragment())
         }
-
         return this.binding.root
     }
 

@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.example.ssp.R
 import com.example.ssp.databinding.FragmentPatientBinding
 
 class PatientFragment : Fragment() {
