@@ -3,16 +3,17 @@ package com.example.ssp.ui.patients.list
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ssp.R
 import com.example.ssp.adapter.PatientAdapter
 import com.example.ssp.databinding.FragmentListPatientBinding
+import com.example.ssp.ui.home.HomeActivity
 
 class ListPatientFragment : Fragment() {
 
@@ -31,17 +32,17 @@ class ListPatientFragment : Fragment() {
 
         this.binding.recyclerViewPatients.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        val searchView = this.binding.searchViewPatients
-
-        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return viewModel.onQueryTextChange(query)
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                return viewModel.onQueryTextChange(newText)
-            }
-        })
+//        val searchView = this.binding.searchViewPatients
+//
+//        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                return viewModel.onQueryTextChange(query)
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                return viewModel.onQueryTextChange(newText)
+//            }
+//        })
 
         this.binding.floatingButtonAddPatient.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToAddPatientFragment())
@@ -71,5 +72,32 @@ class ListPatientFragment : Fragment() {
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             input.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.search_item_menu, menu)
+        val searchView =
+            SearchView((context as HomeActivity).supportActionBar?.themedContext ?: context)
+        menu.findItem(R.id.search_action).apply {
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            actionView = searchView
+        }
+        searchView.isIconified = false
+        searchView.isFocusable = true
+        searchView.requestFocusFromTouch()
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return viewModel.onQueryTextChange(query)
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return viewModel.onQueryTextChange(newText)
+            }
+        })
+        searchView.setOnClickListener { }
     }
 }

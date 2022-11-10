@@ -2,16 +2,21 @@ package com.example.ssp.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.ssp.R
 import com.example.ssp.databinding.ActivityHomeBinding
-import com.example.ssp.ui.dataSheet.DataSheetFragment
-import com.example.ssp.ui.patients.PatientFragment
-import com.example.ssp.ui.reservations.ReservationsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,27 +24,21 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reservations = ReservationsFragment()
-        val patients = PatientFragment()
-        val dataSheet = DataSheetFragment()
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.nav_host_container
+        ) as NavHostFragment
+        navController = navHostFragment.navController
 
-        setCurrentFragment(reservations)
+        // Setup the bottom navigation view with navController
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView.setupWithNavController(navController)
 
-        binding.contentMain.bottomNavigationView.menu.findItem(R.id.reservations).isChecked = true
-        binding.contentMain.bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.patients -> setCurrentFragment(patients)
-                R.id.reservations -> setCurrentFragment(reservations)
-                R.id.dataSheet -> setCurrentFragment(dataSheet)
-            }
-            true
-        }
+        // Setup the ActionBar with navController and 3 top level destinations
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.listPatientFragment, R.id.reservationsFragment, R.id.dataSheetFragment)
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
-            commit()
-        }
 }

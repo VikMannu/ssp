@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_data_sheets"
+    app:startDestination="@id/dataSheetFragment">
+
+    <fragment
+        android:id="@+id/dataSheetFragment"
+        android:name="com.example.ssp.ui.dataSheet.DataSheetFragment"
+        android:label="fragment_data_sheet"
+        tools:layout="@layout/fragment_data_sheet" />
+</navigation>

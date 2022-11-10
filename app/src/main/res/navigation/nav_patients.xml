@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listPatientFragment"
         android:name="com.example.ssp.ui.patients.list.ListPatientFragment"
-        android:label="Lista Pavcientes"
+        android:label="Lista Pacientes"
         tools:layout="@layout/fragment_list_patient">
         <action
             android:id="@+id/action_listPatientFragment_to_patientDetailsFragment"

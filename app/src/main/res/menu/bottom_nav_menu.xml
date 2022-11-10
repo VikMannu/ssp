@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/patients"
+        android:id="@+id/nav_patients"
         android:title="Pacientes"
         android:icon="@drawable/ic_baseline_groups_24"/>
     <item
-        android:id="@+id/reservations"
+        android:id="@+id/nav_reservations"
             android:title="Reservaciones"
         android:icon="@drawable/ic_baseline_calendar_month_24"/>
     <item
-        android:id="@+id/dataSheet"
+        android:id="@+id/nav_data_sheets"
         android:title="Ficha Clínica"
         android:icon="@drawable/ic_baseline_assignment_24"/>
 </menu>

@@ -1,4 +1,4 @@
-package com.example.ssp.ui
+package com.example.ssp.ui.login
 
 import android.annotation.SuppressLint
 import android.os.Bundle
