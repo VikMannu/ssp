@@ -4,4 +4,6 @@
     <dimen name="text_size_details_patient">18sp</dimen>
     <dimen name="margin_horizontal_edit_patient">60dp</dimen>
     <dimen name="drawable_padding_patient_Edit">10dp</dimen>
+    <dimen name="drawable_padding_list_reservations">5dp</dimen>
+    <dimen name="constrain_layout_padding_list_reservation">8dp</dimen>
 </resources>

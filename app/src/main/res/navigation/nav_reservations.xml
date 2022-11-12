@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/reservationsFragment"
-        android:name="com.example.ssp.ui.reservations.ReservationsFragment"
-        android:label="fragment_reservations"
-        tools:layout="@layout/fragment_reservations" />
+        android:name="com.example.ssp.ui.reservations.list.ListReservationsFragment"
+        android:label="Reservaciones"
+        tools:layout="@layout/fragment_list_reservations" />
 </navigation>
