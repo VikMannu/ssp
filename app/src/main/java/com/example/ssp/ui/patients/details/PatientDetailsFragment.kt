@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.ssp.databinding.FragmentPatientDetailsBinding
-import com.example.ssp.model.Patient
+import com.example.ssp.model.Person
 
 class PatientDetailsFragment : Fragment() {
 
@@ -18,7 +18,7 @@ class PatientDetailsFragment : Fragment() {
 
     private lateinit var viewModel: PatientDetailsViewModel
     private lateinit var binding: FragmentPatientDetailsBinding
-    private lateinit var patient: Patient
+    private lateinit var person: Person
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,20 +28,20 @@ class PatientDetailsFragment : Fragment() {
 
         this.arguments?.let {
             val args = PatientDetailsFragmentArgs.fromBundle(it)
-            this.patient = args.patient
+            this.person = args.person
         }
 
-        this.binding.textViewName.text = this.patient.nombre
-        this.binding.textViewSurname.text = this.patient.apellido
-        this.binding.textViewNumberPhone.text = this.patient.telefono
-        this.binding.textViewEmail.text = this.patient.email
-        this.binding.textViewCI.text = this.patient.cedula
-        this.binding.textViewRuc.text = this.patient.ruc
-        this.binding.textViewTypePerson.text = this.patient.tipoPersona
-        this.binding.textViewBirthday.text = this.patient.fechaNacimiento
+        this.binding.textViewName.text = this.person.nombre
+        this.binding.textViewSurname.text = this.person.apellido
+        this.binding.textViewNumberPhone.text = this.person.telefono
+        this.binding.textViewEmail.text = this.person.email
+        this.binding.textViewCI.text = this.person.cedula
+        this.binding.textViewRuc.text = this.person.ruc
+        this.binding.textViewTypePerson.text = this.person.tipoPersona
+        this.binding.textViewBirthday.text = this.person.fechaNacimiento.split(" ")[0]
 
         this.binding.buttonEdit.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(PatientDetailsFragmentDirections.actionPatientDetailsFragmentToEditPatientFragment(this.patient))
+            NavHostFragment.findNavController(this).navigate(PatientDetailsFragmentDirections.actionPatientDetailsFragmentToEditPatientFragment(this.person))
         }
 
         return this.binding.root

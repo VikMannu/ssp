@@ -22,12 +22,12 @@
         android:name="com.example.ssp.ui.patients.details.PatientDetailsFragment"
         android:label="Detalles del Paciente"
         tools:layout="@layout/fragment_patient_details">
-        <argument
-            android:name="patient"
-            app:argType="com.example.ssp.model.Patient" />
         <action
             android:id="@+id/action_patientDetailsFragment_to_editPatientFragment"
             app:destination="@id/editPatientFragment" />
+        <argument
+            android:name="person"
+            app:argType="com.example.ssp.model.Person" />
     </fragment>
     <fragment
         android:id="@+id/editPatientFragment"
@@ -35,8 +35,8 @@
         android:label="Editar Paciente"
         tools:layout="@layout/fragment_edit_patient" >
         <argument
-            android:name="patient"
-            app:argType="com.example.ssp.model.Patient" />
+            android:name="person"
+            app:argType="com.example.ssp.model.Person" />
     </fragment>
     <fragment
         android:id="@+id/addPatientFragment"

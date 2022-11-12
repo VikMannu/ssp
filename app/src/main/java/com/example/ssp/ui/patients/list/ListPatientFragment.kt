@@ -32,21 +32,11 @@ class ListPatientFragment : Fragment() {
 
         this.binding.recyclerViewPatients.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-//        val searchView = this.binding.searchViewPatients
-//
-//        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                return viewModel.onQueryTextChange(query)
-//            }
-//
-//            override fun onQueryTextChange(newText: String): Boolean {
-//                return viewModel.onQueryTextChange(newText)
-//            }
-//        })
-
         this.binding.floatingButtonAddPatient.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToAddPatientFragment())
         }
+        setHasOptionsMenu(true)
+
         return this.binding.root
     }
 

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ssp.databinding.ItemPatientBinding
-import com.example.ssp.model.Patient
+import com.example.ssp.model.Person
 
 class PatientAdapter(
-    private val patientList: ArrayList<Patient>,
+    private val patientList: ArrayList<Person>,
     private val onItemClicked: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
@@ -19,7 +19,7 @@ class PatientAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         @SuppressLint("SetTextI18n")
-        fun bindItem(patient: Patient) {
+        fun bindItem(patient: Person) {
             this.binding.textViewName.text = "${patient.nombre} ${patient.apellido}"
             this.binding.textViewCI.text = patient.cedula
             this.binding.textViewNumberPhone.text = patient.telefono

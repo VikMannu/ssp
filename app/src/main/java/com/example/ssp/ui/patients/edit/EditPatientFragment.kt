@@ -2,15 +2,18 @@ package com.example.ssp.ui.patients.edit
 
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.example.ssp.databinding.FragmentEditPatientBinding
-import com.example.ssp.model.Patient
+import com.example.ssp.model.Person
 import com.example.ssp.ui.patients.details.PatientDetailsFragmentArgs
+import com.example.ssp.utils.DatePicker
 
 class EditPatientFragment : Fragment() {
 
@@ -20,8 +23,9 @@ class EditPatientFragment : Fragment() {
 
     private lateinit var viewModel: EditPatientViewModel
     private lateinit var binding: FragmentEditPatientBinding
-    private lateinit var patient: Patient
+    private lateinit var person: Person
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,10 +34,11 @@ class EditPatientFragment : Fragment() {
 
         this.arguments?.let {
             val args = PatientDetailsFragmentArgs.fromBundle(it)
-            this.patient = args.patient
+            this.person = args.person
         }
+        DatePicker.createDatePickerDialog(this.binding.editTextBirthday, requireActivity())
 
-        this.editTextBirthDayConfig()
+//        this.editTextBirthDayConfig()
 
         return this.binding.root
     }
