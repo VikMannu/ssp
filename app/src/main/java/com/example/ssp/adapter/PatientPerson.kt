@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ssp.databinding.ItemPatientBinding
+import com.example.ssp.databinding.ItemPersonBinding
 import com.example.ssp.model.Person
 
-class PatientAdapter(
+class PatientPerson(
     private val patientList: ArrayList<Person>,
     private val onItemClicked: (position: Int) -> Unit
 ) :
-    RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
+    RecyclerView.Adapter<PatientPerson.PatientViewHolder>() {
     inner class PatientViewHolder(
-        private val binding: ItemPatientBinding,
+        private val binding: ItemPersonBinding,
         private val onItemClicked: (position: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
@@ -37,7 +37,7 @@ class PatientAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientViewHolder {
         return PatientViewHolder(
-            ItemPatientBinding.inflate(
+            ItemPersonBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

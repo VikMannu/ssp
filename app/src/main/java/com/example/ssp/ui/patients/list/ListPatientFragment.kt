@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.R
-import com.example.ssp.adapter.PatientAdapter
+import com.example.ssp.adapter.PatientPerson
 import com.example.ssp.databinding.FragmentListPatientBinding
 import com.example.ssp.ui.home.HomeActivity
 import com.example.ssp.ui.home.HomeActivityViewModel
@@ -45,8 +45,10 @@ class ListPatientFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ListPatientViewModel::class.java]
 
+        viewModelActivity.resetPatients()
+
         viewModelActivity.arrayPatients.observe(viewLifecycleOwner) {
-            val adapter = PatientAdapter(it) {position -> onListItemClick(position) }
+            val adapter = PatientPerson(it) { position -> onListItemClick(position) }
             binding.recyclerViewPatients.adapter = adapter
         }
     }
@@ -73,11 +75,11 @@ class ListPatientFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                return viewModelActivity.onQueryTextChange(query)
+                return viewModelActivity.onQueryTextChangePatients(query)
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                return viewModelActivity.onQueryTextChange(newText)
+                return viewModelActivity.onQueryTextChangePatients(newText)
             }
         })
         searchView.setOnClickListener { }

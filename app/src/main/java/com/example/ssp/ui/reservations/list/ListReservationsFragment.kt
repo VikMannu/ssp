@@ -41,11 +41,22 @@ class ListReservationsFragment : Fragment() {
 
         this.binding.buttonClear.setOnClickListener {
             this.clearSearchView()
+            this.viewModelActivity.resetReservations()
+        }
+
+        this.binding.textViewSearchEmployee.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(false))
+        }
+
+        this.binding.textViewSearchPatient.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(true))
+
         }
 
         return this.binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -54,6 +65,14 @@ class ListReservationsFragment : Fragment() {
         viewModelActivity.arrayReservations.observe(viewLifecycleOwner) {
             val adapter = ReservationAdapter(it, onListItemClick, editReservation, cancelReservation)
             binding.recyclerViewReservations.adapter = adapter
+        }
+
+        viewModelActivity.physiotherapy.observe(viewLifecycleOwner) {
+            this.binding.textViewEmployee.text = "${it.nombre} ${it.apellido}"
+        }
+
+        viewModelActivity.patient.observe(viewLifecycleOwner) {
+            this.binding.textViewPatient.text = "${it.nombre} ${it.apellido}"
         }
     }
 

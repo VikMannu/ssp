@@ -8,7 +8,7 @@ import com.example.ssp.model.Reservation
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeActivityViewModel: ViewModel() {
+class HomeActivityViewModel : ViewModel() {
 
     // Patients properties
     private val _arrayPatients = MutableLiveData<ArrayList<Person>>()
@@ -31,9 +31,9 @@ class HomeActivityViewModel: ViewModel() {
     val arrayReservations: LiveData<ArrayList<Reservation>>
         get() = _arrayReservations
 
-    private val _employee = MutableLiveData<Person>()
-    val employee: LiveData<Person>
-        get() = _employee
+    private val _physiotherapy = MutableLiveData<Person>()
+    val physiotherapy: LiveData<Person>
+        get() = _physiotherapy
 
     private val _patient = MutableLiveData<Person>()
     val patient: LiveData<Person>
@@ -68,8 +68,30 @@ class HomeActivityViewModel: ViewModel() {
     }
 
     private fun loadPatients(): ArrayList<Person> {
-        val patient1 = Person(1,"Victor Manuel", "Ayala Acosta", "victor.ayala2a@gmail.com", "0982485713", "4692858-0", "4692858", "FISICA", "1998-05-09 00:00:00", true)
-        val patient2 = Person(2,"Manuel Victor", "Acosta Ayala", "ayala.victor2a@gmail.com", "0982485714", "4692859-1", "4692859", "FISICA", "1998-05-10 00:00:00", true)
+        val patient1 = Person(
+            1,
+            "Victor Manuel",
+            "Ayala Acosta",
+            "victor.ayala2a@gmail.com",
+            "0982485713",
+            "4692858-0",
+            "4692858",
+            "FISICA",
+            "1998-05-09 00:00:00",
+            true
+        )
+        val patient2 = Person(
+            2,
+            "Manuel Victor",
+            "Acosta Ayala",
+            "ayala.victor2a@gmail.com",
+            "0982485714",
+            "4692859-1",
+            "4692859",
+            "FISICA",
+            "1998-05-10 00:00:00",
+            true
+        )
 
         val list = ArrayList<Person>()
         list.add(patient1)
@@ -79,8 +101,30 @@ class HomeActivityViewModel: ViewModel() {
     }
 
     private fun loadPhysiotherapy(): ArrayList<Person> {
-        val patient1 = Person(1,"Victor Manuel", "Ayala Acosta", "victor.ayala2a@gmail.com", "0982485713", "4692858-0", "4692858", "FISICA", "1998-05-09 00:00:00", true)
-        val patient2 = Person(2,"Manuel Victor", "Acosta Ayala", "ayala.victor2a@gmail.com", "0982485714", "4692859-1", "4692859", "FISICA", "1998-05-10 00:00:00", true)
+        val patient1 = Person(
+            1,
+            "Victor Manuel",
+            "Ayala Acosta",
+            "victor.ayala2a@gmail.com",
+            "0982485713",
+            "4692858-0",
+            "4692858",
+            "FISICA",
+            "1998-05-09 00:00:00",
+            true
+        )
+        val patient2 = Person(
+            2,
+            "Manuel Victor",
+            "Acosta Ayala",
+            "ayala.victor2a@gmail.com",
+            "0982485714",
+            "4692859-1",
+            "4692859",
+            "FISICA",
+            "1998-05-10 00:00:00",
+            true
+        )
 
         val list = ArrayList<Person>()
         list.add(patient1)
@@ -90,11 +134,35 @@ class HomeActivityViewModel: ViewModel() {
     }
 
     private fun loadReservation(): ArrayList<Reservation> {
-        val patient1 = Person(1,"Victor Manuel", "Ayala Acosta", "victor.ayala2a@gmail.com", "0982485713", "4692858-0", "4692858", "FISICA", "1998-05-09 00:00:00", true)
-        val patient2 = Person(2,"Manuel Victor", "Acosta Ayala", "ayala.victor2a@gmail.com", "0982485714", "4692859-1", "4692859", "FISICA", "1998-05-10 00:00:00", true)
+        val patient1 = Person(
+            1,
+            "Victor Manuel",
+            "Ayala Acosta",
+            "victor.ayala2a@gmail.com",
+            "0982485713",
+            "4692858-0",
+            "4692858",
+            "FISICA",
+            "1998-05-09 00:00:00",
+            true
+        )
+        val patient2 = Person(
+            2,
+            "Manuel Victor",
+            "Acosta Ayala",
+            "ayala.victor2a@gmail.com",
+            "0982485714",
+            "4692859-1",
+            "4692859",
+            "FISICA",
+            "1998-05-10 00:00:00",
+            true
+        )
 
-        val reservation1 = Reservation(1,"20190903", "1000", "1015", patient1, patient2, "Ninguna", "true")
-        val reservation2 = Reservation(2,"20201004", "1000", "1015", patient1, patient2, "Ninguna", "true")
+        val reservation1 =
+            Reservation(1, "20190903", "1000", "1015", patient1, patient2, "Ninguna", "true")
+        val reservation2 =
+            Reservation(2, "20201004", "1000", "1015", patient1, patient2, "Ninguna", "true")
 
         val list = ArrayList<Reservation>()
         list.add(reservation1)
@@ -115,11 +183,35 @@ class HomeActivityViewModel: ViewModel() {
         return this.listAllReservationsFilter[position]
     }
 
+    fun setPhysiotherapy(physiotherapy: Person) {
+        this._physiotherapy.value = physiotherapy
+
+        val auxReservation =
+            this.listAllReservations.filter { reservation -> reservation.idEmpleado.idPersona == physiotherapy.idPersona }
+
+        this.listAllReservationsFilter.clear()
+        this.listAllReservationsFilter.addAll(auxReservation)
+
+        this._arrayReservations.value = listAllReservationsFilter
+    }
+
+    fun setPatient(patient: Person) {
+        this._patient.value = patient
+
+        val auxReservation =
+            this.listAllReservations.filter { reservation -> reservation.idCliente.idPersona == patient.idPersona }
+
+        this.listAllReservationsFilter.clear()
+        this.listAllReservationsFilter.addAll(auxReservation)
+
+        this._arrayReservations.value = listAllReservationsFilter
+    }
+
     fun editReservation(reservation: Reservation): Boolean {
         return true
     }
 
-    fun onQueryTextChange(newText: String): Boolean {
+    fun onQueryTextChangePatients(newText: String): Boolean {
         with(this.listAllPatientsFilter) { clear() }
         val searchText = newText.lowercase(Locale.getDefault())
         if (searchText.isNotEmpty()) {
@@ -139,6 +231,32 @@ class HomeActivityViewModel: ViewModel() {
         }
         this._arrayPatients.value = this.listAllPatientsFilter
         return false
+    }
+
+    fun onQueryTextChangePhysiotherapy(newText: String): Boolean {
+        with(this.listAllPhysiotherapyFilter) { clear() }
+        val searchText = newText.lowercase(Locale.getDefault())
+        if (searchText.isNotEmpty()) {
+            this.listAllPhysiotherapy.forEach {
+                val ci = it.cedula.lowercase(Locale.getDefault())
+                val name =
+                    "${it.nombre} ${it.apellido}".lowercase(
+                        Locale.getDefault()
+                    )
+                if (ci.contains(searchText) || name.contains(searchText)) {
+                    this.listAllPhysiotherapyFilter.add(it)
+                }
+            }
+        } else {
+            this.listAllPhysiotherapyFilter.clear()
+            this.listAllPhysiotherapyFilter.addAll(this.listAllPatients)
+        }
+        this._arrayPhysiotherapy.value = this.listAllPhysiotherapyFilter
+        return false
+    }
+
+    fun updateReservation(reservation: Reservation): Boolean {
+        return true
     }
 
     fun cancelReservation(position: Int) {
