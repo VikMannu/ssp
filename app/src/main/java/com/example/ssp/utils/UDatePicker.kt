@@ -53,6 +53,7 @@ class UDatePicker {
             }
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun createDatePickerDialog(textViewClick: TextView, editTextSet: TextView, activity: FragmentActivity) {
             textViewClick.setOnClickListener {
 
@@ -74,10 +75,8 @@ class UDatePicker {
                     { _, year, monthOfYear, dayOfMonth ->
                         // on below line we are setting
                         // date to our edit text.
-                        val formatter = SimpleDateFormat("yyyy-MM-dd")
-                        val date = Date(year, monthOfYear, dayOfMonth)
-                        val dat = formatter.format(date)
-                        editTextSet.text = dat
+                        val date =LocalDate.of(year, monthOfYear, dayOfMonth);
+                        editTextSet.text = (date.format(DateTimeFormatter.ISO_DATE))
                     },
                     // on below line we are passing year, month
                     // and day for the selected date in our date picker.
