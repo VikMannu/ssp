@@ -9,6 +9,6 @@
     <fragment
         android:id="@+id/dataSheetFragment"
         android:name="com.example.ssp.ui.dataSheet.DataSheetFragment"
-        android:label="fragment_data_sheet"
+        android:label="Ficha Clinica"
         tools:layout="@layout/fragment_data_sheet" />
 </navigation>

@@ -53,15 +53,7 @@ class ListPatientFragment : Fragment() {
 
     private fun onListItemClick(position: Int) {
         NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(viewModel.getPatient(position)))
-    }
-
-    private fun hide() {
-        val view = activity?.currentFocus
-        if (view != null) {
-            val input: InputMethodManager =
-                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            input.hideSoftInputFromWindow(view.windowToken, 0)
-        }
+        viewModel.reset()
     }
 
     @Deprecated("Deprecated in Java")

@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.example.ssp.databinding.FragmentAddPatientBinding
-import com.example.ssp.utils.DatePicker
+import com.example.ssp.utils.UDatePicker
 
 class AddPatientFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class AddPatientFragment : Fragment() {
     ): View {
         this.binding = FragmentAddPatientBinding.inflate(inflater, container, false)
 
-        DatePicker.createDatePickerDialog(this.binding.editTextBirthday, requireActivity())
+        UDatePicker.createDatePickerDialog(this.binding.editTextBirthday, requireActivity())
 
         return this.binding.root
     }

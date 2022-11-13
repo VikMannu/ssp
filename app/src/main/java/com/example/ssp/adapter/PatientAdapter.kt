@@ -30,8 +30,7 @@ class PatientAdapter(
         }
 
         override fun onClick(v: View?) {
-            val position = this.adapterPosition
-            this.onItemClicked(position)
+            this.onItemClicked(this.adapterPosition)
         }
 
     }

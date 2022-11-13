@@ -34,7 +34,7 @@ class ListPatientViewModel : ViewModel() {
     }
 
     fun getPatient(position: Int): Person {
-        return this.listAllPatients[position]
+        return this.listAllPatientsFilter[position]
     }
 
     fun onQueryTextChange(newText: String): Boolean {
@@ -57,5 +57,9 @@ class ListPatientViewModel : ViewModel() {
         }
         this._arrayPatients.value = this.listAllPatientsFilter
         return false
+    }
+
+    fun reset() {
+        _arrayPatients.value = listAllPatients
     }
 }

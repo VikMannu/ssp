@@ -1,7 +1,5 @@
 package com.example.ssp.ui.patients.edit
 
-import android.app.DatePickerDialog
-import android.icu.util.Calendar
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -13,7 +11,7 @@ import androidx.annotation.RequiresApi
 import com.example.ssp.databinding.FragmentEditPatientBinding
 import com.example.ssp.model.Person
 import com.example.ssp.ui.patients.details.PatientDetailsFragmentArgs
-import com.example.ssp.utils.DatePicker
+import com.example.ssp.utils.UDatePicker
 
 class EditPatientFragment : Fragment() {
 
@@ -36,9 +34,18 @@ class EditPatientFragment : Fragment() {
             val args = PatientDetailsFragmentArgs.fromBundle(it)
             this.person = args.person
         }
-        DatePicker.createDatePickerDialog(this.binding.editTextBirthday, requireActivity())
 
-//        this.editTextBirthDayConfig()
+        this.binding.editTextName.setText(this.person.nombre)
+        this.binding.editTextSurname.setText(this.person.apellido)
+        this.binding.editTextNumberPhone.setText(this.person.telefono)
+        this.binding.editTextEmail.setText(this.person.email)
+        this.binding.editTextCI.setText(this.person.cedula)
+        this.binding.editTextRuc.setText(this.person.ruc)
+        this.binding.editTextTypePerson.setText(this.person.tipoPersona)
+        this.binding.editTextBirthday.setText(this.person.fechaNacimiento.split(" ")[0])
+
+        UDatePicker.createDatePickerDialog(this.binding.editTextBirthday, requireActivity())
+
 
         return this.binding.root
     }
@@ -48,43 +55,5 @@ class EditPatientFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[EditPatientViewModel::class.java]
         // TODO: Use the ViewModel
-    }
-
-    private fun editTextBirthDayConfig() {
-        this.binding.editTextBirthday.setOnClickListener {
-
-            // on below line we are getting
-            // the instance of our calendar.
-            val c = Calendar.getInstance()
-
-            // on below line we are getting
-            // our day, month and year.
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            // on below line we are creating a
-            // variable for date picker dialog.
-            val datePickerDialog = activity?.let { fragmentActivity ->
-                DatePickerDialog(
-                    // on below line we are passing context.
-                    fragmentActivity,
-                    { _, year, monthOfYear, dayOfMonth ->
-                        // on below line we are setting
-                        // date to our edit text.
-                        val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                        this.binding.editTextBirthday.setText(dat)
-                    },
-                    // on below line we are passing year, month
-                    // and day for the selected date in our date picker.
-                    year,
-                    month,
-                    day
-                )
-            }
-            // at last we are calling show
-            // to display our date picker dialog.
-            datePickerDialog?.show()
-        }
     }
 }
