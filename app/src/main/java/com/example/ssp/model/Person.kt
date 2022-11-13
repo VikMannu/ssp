@@ -16,5 +16,5 @@ data class Person(
     val cedula: String,
     val tipoPersona: String,
     val fechaNacimiento: String,
-    val soloUsuariosDelSistema: String
+    val soloUsuariosDelSistema: Boolean
 ) : Serializable

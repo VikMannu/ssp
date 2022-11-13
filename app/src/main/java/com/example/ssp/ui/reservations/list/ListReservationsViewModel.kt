@@ -48,8 +48,8 @@ class ListReservationsViewModel : ViewModel() {
     }
 
     private fun auxLoadExample(): ArrayList<Reservation> {
-        val patient1 = Person(1,"Victor Manuel", "Ayala Acosta", "victor.ayala2a@gmail.com", "0982485713", "4692858-0", "4692858", "FISICA", "1998-05-09 00:00:00", "true")
-        val patient2 = Person(2,"Manuel Victor", "Acosta Ayala", "ayala.victor2a@gmail.com", "0982485714", "4692859-1", "4692859", "FISICA", "1998-05-10 00:00:00", "true")
+        val patient1 = Person(1,"Victor Manuel", "Ayala Acosta", "victor.ayala2a@gmail.com", "0982485713", "4692858-0", "4692858", "FISICA", "1998-05-09 00:00:00", true)
+        val patient2 = Person(2,"Manuel Victor", "Acosta Ayala", "ayala.victor2a@gmail.com", "0982485714", "4692859-1", "4692859", "FISICA", "1998-05-10 00:00:00", true)
 
         val reservation1 = Reservation("20190903", "1000", "1015", patient1, patient2, "Ninguna", "true")
         val reservation2 = Reservation("20201004", "1000", "1015", patient1, patient2, "Ninguna", "true")

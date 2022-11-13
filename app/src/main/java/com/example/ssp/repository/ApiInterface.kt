@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface ApiInterface {
     @GET("")
-    suspend fun getAllPatiens(): Response<People>
+    suspend fun getAllPatients(): Response<People>
 }
