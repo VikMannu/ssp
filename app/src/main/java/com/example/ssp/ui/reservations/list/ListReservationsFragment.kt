@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.adapter.ReservationAdapter
 import com.example.ssp.databinding.FragmentListReservationsBinding
@@ -56,7 +58,7 @@ class ListReservationsFragment : Fragment() {
     }
 
     private val editReservation = fun (position: Int) {
-        println(viewModel.getReservation(position))
+        NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(viewModel.getReservation(position)))
     }
 
     private val cancelReservation = fun (position: Int) {

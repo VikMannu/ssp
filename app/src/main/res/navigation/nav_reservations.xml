@@ -9,5 +9,18 @@
         android:id="@+id/reservationsFragment"
         android:name="com.example.ssp.ui.reservations.list.ListReservationsFragment"
         android:label="Reservaciones"
-        tools:layout="@layout/fragment_list_reservations" />
+        tools:layout="@layout/fragment_list_reservations" >
+        <action
+            android:id="@+id/action_reservationsFragment_to_editReservationFragment"
+            app:destination="@id/editReservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editReservationFragment"
+        android:name="com.example.ssp.ui.reservations.edit.EditReservationFragment"
+        android:label="Editar Reservation"
+        tools:layout="@layout/fragment_edit_reservation" >
+        <argument
+            android:name="reservation"
+            app:argType="com.example.ssp.model.Reservation" />
+    </fragment>
 </navigation>
