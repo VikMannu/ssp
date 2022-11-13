@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class UDatePicker {
@@ -36,10 +38,8 @@ class UDatePicker {
                     { _, year, monthOfYear, dayOfMonth ->
                         // on below line we are setting
                         // date to our edit text.
-                        val formatter = SimpleDateFormat("yyyy-MM-dd")
-                        val date = Date(year, monthOfYear, dayOfMonth)
-                        val dat = formatter.format(date)
-                        editText.setText(dat)
+                        val date =LocalDate.of(year, monthOfYear, dayOfMonth);
+                        editText.setText(date.format(DateTimeFormatter.ISO_DATE))
                     },
                     // on below line we are passing year, month
                     // and day for the selected date in our date picker.
