@@ -7,6 +7,7 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.example.ssp.R
 import com.example.ssp.adapter.PatientAdapter
 import com.example.ssp.databinding.FragmentListPatientBinding
 import com.example.ssp.ui.home.HomeActivity
+import com.example.ssp.ui.home.HomeActivityViewModel
 
 class ListPatientFragment : Fragment() {
 
@@ -22,6 +24,7 @@ class ListPatientFragment : Fragment() {
     }
 
     private lateinit var viewModel: ListPatientViewModel
+    private val viewModelActivity: HomeActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentListPatientBinding
 
     override fun onCreateView(
@@ -45,15 +48,15 @@ class ListPatientFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ListPatientViewModel::class.java]
 
-        viewModel.arrayPatients.observe(viewLifecycleOwner) {
+        viewModelActivity.arrayPatients.observe(viewLifecycleOwner) {
             val adapter = PatientAdapter(it) {position -> onListItemClick(position) }
             binding.recyclerViewPatients.adapter = adapter
         }
     }
 
     private fun onListItemClick(position: Int) {
-        NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(viewModel.getPatient(position)))
-        viewModel.reset()
+        NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(viewModelActivity.getPatient(position)))
+        viewModelActivity.reset()
     }
 
     @Deprecated("Deprecated in Java")
@@ -73,11 +76,11 @@ class ListPatientFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                return viewModel.onQueryTextChange(query)
+                return viewModelActivity.onQueryTextChange(query)
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                return viewModel.onQueryTextChange(newText)
+                return viewModelActivity.onQueryTextChange(newText)
             }
         })
         searchView.setOnClickListener { }

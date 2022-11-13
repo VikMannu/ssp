@@ -54,12 +54,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun clean() {
-        this.binding.editTextTextEmailAddress.setText("")
+        this.binding.editTextUsername.setText("")
         this.binding.editTextTextPassword.setText("")
     }
 
     private fun checkAllFields(): Boolean {
-        if(!checkEditTextTextEmailAddress()) {
+        if(!checkEditTextUsername()) {
             return false
         }
 
@@ -70,21 +70,15 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private fun checkEditTextTextEmailAddress(): Boolean {
-        val email = binding.editTextTextEmailAddress.text.toString().trim()
+    private fun checkEditTextUsername(): Boolean {
+        val email = binding.editTextUsername.text.toString().trim()
         if (email.isEmpty()) {
-            binding.editTextTextEmailAddress.error = "Este campo es requerido"
-            binding.editTextTextEmailAddress.requestFocus()
+            binding.editTextUsername.error = "Este campo es requerido"
+            binding.editTextUsername.requestFocus()
             return false
         }
 
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        if (!(email.trim { it <= ' ' }.matches(emailPattern.toRegex()))) {
-            binding.editTextTextEmailAddress.error = "Tiene que ser un correo válido"
-            binding.editTextTextEmailAddress.requestFocus()
-            return false
-        }
-        binding.editTextTextEmailAddress.clearFocus()
+        binding.editTextUsername.clearFocus()
         return true
     }
 
