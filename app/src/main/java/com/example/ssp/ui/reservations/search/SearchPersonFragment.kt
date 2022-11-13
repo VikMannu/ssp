@@ -53,14 +53,16 @@ class SearchPersonFragment : Fragment() {
         viewModelActivity.resetPatients()
         viewModelActivity.resetPhysiotherapy()
 
-        viewModelActivity.arrayPatients.observe(viewLifecycleOwner) {
-            val adapter = PatientPerson(it) { position -> onListItemClickPatient(position) }
-            binding.recyclerViewPerson.adapter = adapter
-        }
-
-        viewModelActivity.arrayPhysiotherapy.observe(viewLifecycleOwner) {
-            val adapter = PatientPerson(it) { position -> onListItemClickPhysiotherapy(position) }
-            binding.recyclerViewPerson.adapter = adapter
+        if(this.isPatient) {
+            viewModelActivity.arrayPatients.observe(viewLifecycleOwner) {
+                val adapter = PatientPerson(it) { position -> onListItemClickPatient(position) }
+                binding.recyclerViewPerson.adapter = adapter
+            }
+        } else {
+            viewModelActivity.arrayPhysiotherapy.observe(viewLifecycleOwner) {
+                val adapter = PatientPerson(it) { position -> onListItemClickPhysiotherapy(position) }
+                binding.recyclerViewPerson.adapter = adapter
+            }
         }
     }
 
