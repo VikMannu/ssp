@@ -5,7 +5,10 @@ import java.io.Serializable
 
 data class People(
     @SerializedName("lista")
-    val data: ArrayList<Person>
+    val data: ArrayList<Person>,
+
+    @SerializedName("totalDatos")
+    val totalData: Int
 ) : Serializable
 
 data class Person(

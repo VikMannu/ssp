@@ -51,7 +51,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-        getUserList()
     }
 
     private fun getUserList() {
@@ -62,8 +61,7 @@ class LoginFragment : Fragment() {
                 val response = apiInterface.getAllPhysiotherapy()
                 if (response.isSuccessful) {
                     //your code for handaling success response
-
-
+                    println("Total: ${response.body()?.totalData}")
                 } else {
                     Toast.makeText(
                         activity,
@@ -71,8 +69,8 @@ class LoginFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
-            }catch (Ex:Exception){
-                Log.e("Error",Ex.localizedMessage)
+            } catch (Ex: Exception) {
+                Log.e("Error", Ex.localizedMessage)
             }
         }
     }
@@ -87,12 +85,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun clean() {
-        this.binding.editTextUsername.setText("")
+        this.binding.editTextEmail.setText("")
         this.binding.editTextTextPassword.setText("")
     }
 
     private fun checkAllFields(): Boolean {
-        if(!checkEditTextUsername()) {
+        if (!checkEditTextEmail()) {
             return false
         }
 
@@ -103,15 +101,26 @@ class LoginFragment : Fragment() {
         return true
     }
 
-    private fun checkEditTextUsername(): Boolean {
-        val email = binding.editTextUsername.text.toString().trim()
+    private fun checkEditTextEmail(): Boolean {
+        val email = binding.editTextEmail.text.toString().trim()
         if (email.isEmpty()) {
-            binding.editTextUsername.error = "Este campo es requerido"
-            binding.editTextUsername.requestFocus()
+            binding.editTextEmail.error = "Este campo es requerido"
+            binding.editTextEmail.requestFocus()
             return false
         }
 
-        binding.editTextUsername.clearFocus()
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        if (!(email.trim { it <= ' ' }.matches(emailPattern.toRegex()))) {
+            binding.editTextEmail.error = "Tiene que ser un correo válido"
+            return false
+        }
+
+        if (!viewModel.checkEmail(email)) {
+            binding.editTextEmail.error = "Usuario no encontrado"
+            return false
+        }
+
+        binding.editTextEmail.clearFocus()
         return true
     }
 
@@ -128,6 +137,7 @@ class LoginFragment : Fragment() {
             binding.editTextTextPassword.requestFocus()
             return false
         }
+
         binding.editTextTextPassword.clearFocus()
         return true
     }

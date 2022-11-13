@@ -21,7 +21,7 @@ class HomeActivityViewModel : ViewModel() {
     // Physiotherapy properties
     private val _arrayPhysiotherapy = MutableLiveData<ArrayList<Person>>()
     val arrayPhysiotherapy: LiveData<ArrayList<Person>>
-        get() = _arrayPatients
+        get() = _arrayPhysiotherapy
 
     private val listAllPhysiotherapy = ArrayList<Person>()
     private val listAllPhysiotherapyFilter = ArrayList<Person>()
