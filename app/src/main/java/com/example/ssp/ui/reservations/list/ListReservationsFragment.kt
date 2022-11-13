@@ -1,5 +1,6 @@
 package com.example.ssp.ui.reservations.list
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.adapter.ReservationAdapter
 import com.example.ssp.databinding.FragmentListReservationsBinding
+import com.example.ssp.ui.home.HomeActivityViewModel
 import com.example.ssp.utils.UDatePicker
 
 class ListReservationsFragment : Fragment() {
@@ -22,6 +24,7 @@ class ListReservationsFragment : Fragment() {
     }
 
     private lateinit var viewModel: ListReservationsViewModel
+    private val viewModelActivity: HomeActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentListReservationsBinding
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -36,7 +39,9 @@ class ListReservationsFragment : Fragment() {
         UDatePicker.createDatePickerDialog(this.binding.textViewSearchStartDate, this.binding.textViewStartDate,requireActivity())
         UDatePicker.createDatePickerDialog(this.binding.textViewSearchEndDate, this.binding.textViewEndDate,requireActivity())
 
-
+        this.binding.buttonClear.setOnClickListener {
+            this.clearSearchView()
+        }
 
         return this.binding.root
     }
@@ -45,9 +50,8 @@ class ListReservationsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ListReservationsViewModel::class.java]
-//        viewModel = ViewModelProvider(this, ListReservationsViewModelFactory(USharedPreferences.readAccount(activity)))[ListReservationsViewModel::class.java]
 
-        viewModel.arrayPatients.observe(viewLifecycleOwner) {
+        viewModelActivity.arrayReservations.observe(viewLifecycleOwner) {
             val adapter = ReservationAdapter(it, onListItemClick, editReservation, cancelReservation)
             binding.recyclerViewReservations.adapter = adapter
         }
@@ -58,11 +62,19 @@ class ListReservationsFragment : Fragment() {
     }
 
     private val editReservation = fun (position: Int) {
-        NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(viewModel.getReservation(position)))
+        NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(viewModelActivity.getReservation(position)))
     }
 
     private val cancelReservation = fun (position: Int) {
-        viewModel.cancelReservation(position)
+        viewModelActivity.cancelReservation(position)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun clearSearchView() {
+        this.binding.textViewEmployee.text = "Todos"
+        this.binding.textViewPatient.text = "Todos"
+        this.binding.textViewStartDate.text = "Todos"
+        this.binding.textViewEndDate.text = "Todos"
     }
 
 }
