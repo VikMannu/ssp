@@ -1,10 +1,7 @@
 package com.example.ssp.ui.patients.list
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -56,7 +53,7 @@ class ListPatientFragment : Fragment() {
 
     private fun onListItemClick(position: Int) {
         NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(viewModelActivity.getPatient(position)))
-        viewModelActivity.reset()
+        viewModelActivity.resetPatients()
     }
 
     @Deprecated("Deprecated in Java")
