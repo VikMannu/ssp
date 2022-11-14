@@ -39,7 +39,7 @@ class AddPatientFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AddPatientViewModel::class.java]
 
         this.binding.buttonConfirm.setOnClickListener {
-            val person = Person(
+            val patient = Person(
                 null,
                 binding.editTextName.text.toString(),
                 binding.editTextSurname.text.toString(),
@@ -52,7 +52,7 @@ class AddPatientFragment : Fragment() {
                 null
             )
 
-            val person1 = Person(
+            val patient1 = Person(
                 null,
                 "Victor Manuel",
                 "Ayala Acosta",
@@ -64,7 +64,7 @@ class AddPatientFragment : Fragment() {
                 "1999-09-21 00:00:00",
                 null
             )
-            activity?.let { fragmentActivity -> viewModel.addPatient(person1, fragmentActivity) }
+            activity?.let { fragmentActivity -> viewModel.addPatient(patient1, fragmentActivity) }
             activity?.onBackPressed()
         }
     }

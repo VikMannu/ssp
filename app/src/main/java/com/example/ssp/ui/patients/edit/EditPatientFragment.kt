@@ -59,7 +59,33 @@ class EditPatientFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EditPatientViewModel::class.java]
 
         this.binding.buttonConfirm.setOnClickListener {
-            viewModelActivity.loadPatients()
+
+            val patient = Person(
+                this.person.idPersona,
+                binding.editTextName.text.toString(),
+                binding.editTextSurname.text.toString(),
+                binding.editTextNumberPhone.text.toString(),
+                binding.editTextEmail.text.toString(),
+                binding.editTextRuc.text.toString(),
+                binding.editTextCI.text.toString(),
+                binding.editTextTypePerson.text.toString(),
+                "${binding.editTextBirthday.text} 00:00:00",
+                null
+            )
+
+            val person1 = Person(
+                this.person.idPersona,
+                "Victor Manuel",
+                "Ayala Acosta",
+                "a@abc.com",
+                "0981 234 567",
+                "1234567-1",
+                "1234567",
+                "FISICA",
+                "1999-09-21 00:00:00",
+                null
+            )
+            viewModel.updatePatient(person1, requireActivity())
             activity?.onBackPressed()
             activity?.onBackPressed()
         }

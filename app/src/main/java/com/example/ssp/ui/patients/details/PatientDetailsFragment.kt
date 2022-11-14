@@ -53,6 +53,7 @@ class PatientDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[PatientDetailsViewModel::class.java]
 
         this.binding.buttonDelete.setOnClickListener {
+            viewModel.deletePatient(this.person, requireActivity())
             activity?.onBackPressed()
         }
     }
