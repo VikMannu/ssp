@@ -105,8 +105,12 @@ class AddReservationFragment : Fragment() {
         println(position)
     }
 
-    private val addReservation = fun(position: Int) {
-        position
+    private val addReservation = @RequiresApi(Build.VERSION_CODES.O)
+    fun(position: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            viewModel.addReservation(viewModelActivity.getFreeReservation(position), requireActivity())
+            viewModelActivity.freeReservations(this.physiotherapist, this.binding.textViewDate.text.toString().replace("-", ""), requireActivity())
+        }
     }
 
 }

@@ -37,7 +37,10 @@ interface ApiInterface {
     @GET
     fun getReservations(@Url url:String): Call<Reservations>
 
-    @Headers("Content-Type: application/json", "usuario:gustavo")
+    @GET
+    fun getFreeReservations(@Url url:String): Call<ArrayList<Reservation>>
+
+    @Headers("Content-Type: application/json", "usuario: gustavo")
     @POST("reserva")
     fun postReservation(@Body reservation: Reservation): Call<Reservation>
 

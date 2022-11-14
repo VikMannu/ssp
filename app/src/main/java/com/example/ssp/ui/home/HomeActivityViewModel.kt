@@ -23,6 +23,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeActivityViewModel(
@@ -377,18 +378,22 @@ class HomeActivityViewModel(
 
     }
 
+    fun getFreeReservation(position: Int): Reservation {
+        return this.listAllReservationsFree[position]
+    }
+
     fun freeReservations(physiotherapist: Person, date: String, fragmentActivity: FragmentActivity) {
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
         val url = "persona/${physiotherapist.idPersona}/agenda?fecha=$date&disponible=S"
-        val call = apiInterface.getReservations(url)
+        val call = apiInterface.getFreeReservations(url)
 
-        call.enqueue(object : Callback<Reservations> {
-            override fun onResponse(call: Call<Reservations>, response: Response<Reservations>) {
+        call.enqueue(object : Callback<ArrayList<Reservation>> {
+            override fun onResponse(call: Call<ArrayList<Reservation>>, response: Response<ArrayList<Reservation>>) {
                 if (response.isSuccessful) {
                     //your code for handaling success response
                     listAllReservationsFree.clear()
-                    response.body()?.let { listAllReservationsFree.addAll(it.data) }
+                    response.body()?.let { listAllReservationsFree.addAll(it) }
 
                     _arrayReservationsFree.value = listAllReservationsFree
 
@@ -401,7 +406,7 @@ class HomeActivityViewModel(
                 }
             }
 
-            override fun onFailure(call: Call<Reservations>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Reservation>>, t: Throwable) {
                 Toast.makeText(fragmentActivity, "Ocurrio un error", Toast.LENGTH_SHORT).show()
             }
         })

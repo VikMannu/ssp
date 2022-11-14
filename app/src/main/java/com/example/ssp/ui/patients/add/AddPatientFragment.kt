@@ -57,7 +57,7 @@ class AddPatientFragment : Fragment() {
                 "Victor Manuel",
                 "Ayala Acosta",
                 "a@abc.com",
-                "0981 234 567",
+                "0981234567",
                 "1234567-1",
                 "1234567",
                 "FISICA",
