@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_reservationsFragment_to_searchPersonFragment"
             app:destination="@id/searchPersonFragment" />
+        <action
+            android:id="@+id/action_reservationsFragment_to_addReservationFragment"
+            app:destination="@id/addReservationFragment" />
     </fragment>
     <fragment
         android:id="@+id/editReservationFragment"
@@ -35,4 +38,9 @@
             android:name="isPatient"
             app:argType="boolean" />
     </fragment>
+    <fragment
+        android:id="@+id/addReservationFragment"
+        android:name="com.example.ssp.ui.reservations.add.AddReservationFragment"
+        android:label="Agregar Reservación"
+        tools:layout="@layout/fragment_add_reservation" />
 </navigation>

@@ -14,7 +14,7 @@ class PatientDetailsViewModel : ViewModel() {
     fun deletePatient(patient: Person, fragmentActivity: FragmentActivity) {
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call = patient.idPersona?.let { apiInterface.deletePatient(it) }
+        val call = patient.idPersona?.let { apiInterface.deletePerson(it) }
 
         call?.enqueue(object : Callback<Person> {
             override fun onResponse(call: Call<Person>, response: Response<Person>) {

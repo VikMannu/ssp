@@ -1,5 +1,6 @@
 package com.example.ssp.ui.home
 
+import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Build
 import android.util.Log
@@ -18,11 +19,15 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class HomeActivityViewModel : ViewModel() {
+@RequiresApi(Build.VERSION_CODES.O)
+class HomeActivityViewModel(
+    private val account: Person
+) : ViewModel() {
 
     // Patients properties
     private val _arrayPatients = MutableLiveData<ArrayList<Person>>()
@@ -69,9 +74,11 @@ class HomeActivityViewModel : ViewModel() {
 
         // Load Physiotherapy
         loadPhysiotherapy()
+
+        defaultReservations()
     }
 
-    fun loadPatients() {
+    private fun loadPatients() {
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
         CoroutineScope(Dispatchers.IO).launch {
@@ -113,6 +120,56 @@ class HomeActivityViewModel : ViewModel() {
                 Ex.localizedMessage?.let { Log.e("Error", it) }
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun defaultReservations() {
+        val physiotherapistEncode = Uri.encode("{\"idEmpleado\":{\"idPersona\":${this.account.idPersona}},")
+        this._physiotherapy.value = this.account
+
+        val patientEncode = "%22idCliente%22%3A%7B%22idPersona%22%3Anull%7D%2C"
+
+        val c = Calendar.getInstance()
+
+        // on below line we are getting
+        // our day, month and year.
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val localDate = LocalDate.of(year, month+1, day);
+        val dateFormatter = localDate.format(DateTimeFormatter.ISO_DATE)
+        val dateRequest = dateFormatter.replace("-", "")
+
+        val startDateEncode = Uri.encode("\"fechaDesdeCadena\":$dateRequest,")
+        this._startDate.value = dateRequest
+
+        val endDateEncode = "%22fechaHastaCadena%22%3Anull%7D"
+
+        val encodeReservation = physiotherapistEncode + patientEncode + startDateEncode + endDateEncode
+
+        val retrofit = RetrofitClient.getInstance()
+        val apiInterface = retrofit.create(ApiInterface::class.java)
+        val call = apiInterface.getReservations("reserva?ejemplo=$encodeReservation")
+
+        call.enqueue(object : Callback<Reservations> {
+            override fun onResponse(call: Call<Reservations>, response: Response<Reservations>) {
+                if (response.isSuccessful) {
+                    //your code for handaling success response
+                    listAllReservations.clear()
+                    response.body()?.let { listAllReservations.addAll(it.data) }
+
+                    _arrayReservations.value = listAllReservations
+
+                } else {
+                    println("No se pudo obtener las reservaciones \n Error: ${response.raw().code}")
+                }
+            }
+
+            override fun onFailure(call: Call<Reservations>, t: Throwable) {
+                println("Ocurrio un error")
+            }
+        })
     }
 
     fun getPatient(position: Int): Person {
@@ -217,10 +274,6 @@ class HomeActivityViewModel : ViewModel() {
         }
         this._arrayPhysiotherapy.value = this.listAllPhysiotherapyFilter
         return false
-    }
-
-    fun cancelReservation(position: Int) {
-        println("Deleted $position")
     }
 
     fun resetPatients() {

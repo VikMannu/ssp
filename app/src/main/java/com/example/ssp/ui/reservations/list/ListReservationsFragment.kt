@@ -1,7 +1,6 @@
 package com.example.ssp.ui.reservations.list
 
 import android.annotation.SuppressLint
-import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,9 +19,6 @@ import com.example.ssp.ui.home.HomeActivityViewModel
 import com.example.ssp.utils.UDatePicker
 import com.example.ssp.utils.UFormatter
 import com.example.ssp.utils.USharedPreferences
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ListReservationsFragment : Fragment() {
 
@@ -82,9 +78,13 @@ class ListReservationsFragment : Fragment() {
             )
         }
 
+        this.binding.floatingButtonAddReservation.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(
+                ListReservationsFragmentDirections.actionReservationsFragmentToAddReservationFragment()
+            )
+        }
+
         this.account = USharedPreferences.readAccount(activity)
-        val local = LocalDateTime.now()
-        val date = local.format(DateTimeFormatter.ISO_DATE).replace("-", "")
 
         return this.binding.root
     }
@@ -149,7 +149,7 @@ class ListReservationsFragment : Fragment() {
     }
 
     private val cancelReservation = fun(position: Int) {
-        viewModelActivity.cancelReservation(position)
+        viewModel.deleteReservation(viewModelActivity.getReservation(position), requireActivity())
     }
 
 }

@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.ssp.model.Person
-import com.example.ssp.model.Reservations
 import com.example.ssp.repository.ApiInterface
 import com.example.ssp.repository.RetrofitClient
 import retrofit2.Call
@@ -14,10 +13,9 @@ import retrofit2.Response
 class EditPatientViewModel : ViewModel() {
 
     fun updatePatient(patient: Person, fragmentActivity: FragmentActivity) {
-
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call = apiInterface.putPatient(patient)
+        val call = apiInterface.putPerson(patient)
 
         call.enqueue(object : Callback<Person> {
             override fun onResponse(call: Call<Person>, response: Response<Person>) {
@@ -32,7 +30,7 @@ class EditPatientViewModel : ViewModel() {
                 } else {
                     Toast.makeText(
                         fragmentActivity,
-                        "No se acutalizó los datos \n Error: ${response.raw().code}",
+                        "No se actualizó los datos \n Error: ${response.raw().code}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -43,4 +41,5 @@ class EditPatientViewModel : ViewModel() {
             }
         })
     }
+
 }

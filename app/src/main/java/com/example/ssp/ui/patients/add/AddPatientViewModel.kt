@@ -14,7 +14,7 @@ class AddPatientViewModel : ViewModel() {
     fun addPatient(patient: Person, fragmentActivity: FragmentActivity) {
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call = apiInterface.postPatient(patient)
+        val call = apiInterface.postPerson(patient)
 
         call.enqueue(object : Callback<Person> {
             override fun onResponse(call: Call<Person>, response: Response<Person>) {
