@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
-import java.text.SimpleDateFormat
+import com.example.ssp.ui.home.HomeActivityViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -38,7 +38,7 @@ class UDatePicker {
                     { _, year, monthOfYear, dayOfMonth ->
                         // on below line we are setting
                         // date to our edit text.
-                        val date =LocalDate.of(year, monthOfYear, dayOfMonth);
+                        val date = LocalDate.of(year, monthOfYear, dayOfMonth);
                         editText.setText(date.format(DateTimeFormatter.ISO_DATE))
                     },
                     // on below line we are passing year, month
@@ -54,7 +54,7 @@ class UDatePicker {
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun createDatePickerDialog(textViewClick: TextView, editTextSet: TextView, activity: FragmentActivity) {
+        fun createDatePickerDialog(textViewClick: TextView, editTextSet: TextView, activity: FragmentActivity, viewModel: HomeActivityViewModel, isStartDate: Boolean) {
             textViewClick.setOnClickListener {
 
                 // on below line we are getting
@@ -75,8 +75,15 @@ class UDatePicker {
                     { _, year, monthOfYear, dayOfMonth ->
                         // on below line we are setting
                         // date to our edit text.
-                        val date =LocalDate.of(year, monthOfYear, dayOfMonth);
-                        editTextSet.text = (date.format(DateTimeFormatter.ISO_DATE))
+                        val localDate = LocalDate.of(year, monthOfYear+1, dayOfMonth);
+                        val dateFormatter = localDate.format(DateTimeFormatter.ISO_DATE)
+                        val dateRequest = dateFormatter.replace("-", "")
+                        editTextSet.text = dateFormatter
+                        if(isStartDate) {
+                            viewModel.setStartDate(dateRequest, activity)
+                        } else {
+                            viewModel.setEndDate(dateRequest, activity)
+                        }
                     },
                     // on below line we are passing year, month
                     // and day for the selected date in our date picker.

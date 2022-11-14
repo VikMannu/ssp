@@ -34,7 +34,7 @@ class LoginViewModel : ViewModel() {
                     response.body()?.data?.let { allPhysiotherapy.addAll(it) }
                 }
             } catch (Ex: Exception) {
-                Log.e("Error", Ex.localizedMessage)
+                Ex.localizedMessage?.let { Log.e("Error", it) }
             }
         }
     }

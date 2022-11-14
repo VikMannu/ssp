@@ -14,7 +14,6 @@ import com.example.ssp.adapter.PatientPerson
 import com.example.ssp.databinding.FragmentSearchPersonBinding
 import com.example.ssp.ui.home.HomeActivity
 import com.example.ssp.ui.home.HomeActivityViewModel
-import kotlin.properties.Delegates
 
 class SearchPersonFragment : Fragment() {
 
@@ -68,15 +67,13 @@ class SearchPersonFragment : Fragment() {
 
     private fun onListItemClickPatient(position: Int) {
         hide()
-        viewModelActivity.setPatient(viewModelActivity.getPatient(position))
-        viewModelActivity.resetReservations()
+        viewModelActivity.setPatient(viewModelActivity.getPatient(position), requireActivity())
         activity?.onBackPressed()
     }
 
     private fun onListItemClickPhysiotherapy(position: Int) {
         hide()
-        viewModelActivity.setPhysiotherapy(viewModelActivity.getPhysiotherapy(position))
-        viewModelActivity.resetPhysiotherapy()
+        viewModelActivity.setPhysiotherapy(viewModelActivity.getPhysiotherapy(position), requireActivity())
         activity?.onBackPressed()
     }
 

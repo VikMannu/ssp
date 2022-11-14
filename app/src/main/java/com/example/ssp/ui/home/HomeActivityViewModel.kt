@@ -1,16 +1,26 @@
 package com.example.ssp.ui.home
 
+import android.net.Uri
+import android.os.Build
 import android.util.Log
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.app.NavUtils
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.ssp.model.Person
-import com.example.ssp.model.Reservation
+import com.example.ssp.model.*
 import com.example.ssp.repository.ApiInterface
 import com.example.ssp.repository.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,6 +47,8 @@ class HomeActivityViewModel : ViewModel() {
     val arrayReservations: LiveData<ArrayList<Reservation>>
         get() = _arrayReservations
 
+    private val listAllReservations = ArrayList<Reservation>()
+
     private val _physiotherapy = MutableLiveData<Person>()
     val physiotherapy: LiveData<Person>
         get() = _physiotherapy
@@ -53,20 +65,12 @@ class HomeActivityViewModel : ViewModel() {
     val endDate: LiveData<String>
         get() = _endDate
 
-    private val listAllReservations = ArrayList<Reservation>()
-    private val listAllReservationsFilter = ArrayList<Reservation>()
-
     init {
         // Load Patients
         loadPatients()
 
         // Load Physiotherapy
         loadPhysiotherapy()
-
-        // Load Reservations
-        listAllReservations.addAll(loadReservation())
-        listAllReservationsFilter.addAll(loadReservation())
-        _arrayReservations.value = listAllReservations
     }
 
     fun loadPatients() {
@@ -86,7 +90,7 @@ class HomeActivityViewModel : ViewModel() {
                     _arrayPatients.value = listAllPatients
                 }
             } catch (Ex: Exception) {
-                Log.e("Error", Ex.localizedMessage)
+                Ex.localizedMessage?.let { Log.e("Error", it) }
             }
         }
     }
@@ -108,47 +112,9 @@ class HomeActivityViewModel : ViewModel() {
                     _arrayPhysiotherapy.value = listAllPhysiotherapy
                 }
             } catch (Ex: Exception) {
-                Log.e("Error", Ex.localizedMessage)
+                Ex.localizedMessage?.let { Log.e("Error", it) }
             }
         }
-    }
-
-    private fun loadReservation(): ArrayList<Reservation> {
-        val patient1 = Person(
-            1,
-            "Victor Manuel",
-            "Ayala Acosta",
-            "victor.ayala2a@gmail.com",
-            "0982485713",
-            "4692858-0",
-            "4692858",
-            "FISICA",
-            "1998-05-09 00:00:00",
-            true
-        )
-        val patient2 = Person(
-            2,
-            "Manuel Victor",
-            "Acosta Ayala",
-            "ayala.victor2a@gmail.com",
-            "0982485714",
-            "4692859-1",
-            "4692859",
-            "FISICA",
-            "1998-05-10 00:00:00",
-            true
-        )
-
-        val reservation1 =
-            Reservation(1, "20190903", "1000", "1015", patient1, patient2, "Ninguna", "true")
-        val reservation2 =
-            Reservation(2, "20201004", "1000", "1015", patient1, patient2, "Ninguna", "true")
-
-        val list = ArrayList<Reservation>()
-        list.add(reservation1)
-        list.add(reservation2)
-
-        return list
     }
 
     fun getPatient(position: Int): Person {
@@ -160,49 +126,66 @@ class HomeActivityViewModel : ViewModel() {
     }
 
     fun getReservation(position: Int): Reservation {
-        return this.listAllReservationsFilter[position]
+        return this.listAllReservations[position]
     }
 
-    fun setPhysiotherapy(physiotherapy: Person) {
+    fun setPhysiotherapy(physiotherapy: Person, fragmentActivity: FragmentActivity) {
+        filterReservations(
+            physiotherapist = physiotherapy,
+            patient = this.patient.value,
+            startDate = this.startDate.value,
+            endDate = this.endDate.value,
+            fragmentActivity = fragmentActivity
+        )
         this._physiotherapy.value = physiotherapy
-
-        val auxReservation =
-            this.listAllReservations.filter { reservation -> reservation.idEmpleado.idPersona == physiotherapy.idPersona }
-
-        this.listAllReservationsFilter.clear()
-        this.listAllReservationsFilter.addAll(auxReservation)
-
-        this._arrayReservations.value = listAllReservationsFilter
     }
 
-    fun setPatient(patient: Person) {
+    fun setPatient(patient: Person, fragmentActivity: FragmentActivity) {
+        filterReservations(
+            physiotherapist = this.physiotherapy.value,
+            patient = patient,
+            startDate = this.startDate.value,
+            endDate = this.endDate.value,
+            fragmentActivity = fragmentActivity
+        )
         this._patient.value = patient
-
-        val auxReservation =
-            this.listAllReservations.filter { reservation -> reservation.idCliente.idPersona == patient.idPersona }
-
-        this.listAllReservationsFilter.clear()
-        this.listAllReservationsFilter.addAll(auxReservation)
-
-        this._arrayReservations.value = listAllReservationsFilter
     }
 
-    fun editReservation(reservation: Reservation): Boolean {
-        return true
+    fun setStartDate(startDate: String, fragmentActivity: FragmentActivity) {
+        filterReservations(
+            physiotherapist = this.physiotherapy.value,
+            patient = this.patient.value,
+            startDate = startDate,
+            endDate = this.endDate.value,
+            fragmentActivity = fragmentActivity
+        )
+
+        this._startDate.value = startDate
+    }
+
+    fun setEndDate(endDate: String, fragmentActivity: FragmentActivity) {
+        filterReservations(
+            physiotherapist = this._physiotherapy.value,
+            patient = this.patient.value,
+            startDate = this.startDate.value,
+            endDate = endDate,
+            fragmentActivity = fragmentActivity
+        )
+
+        this._endDate.value = endDate
     }
 
     fun onQueryTextChangePatients(newText: String): Boolean {
         with(this.listAllPatientsFilter) { clear() }
-        val searchText = newText.lowercase(Locale.getDefault())
+        val searchText = newText.lowercase()
         if (searchText.isNotEmpty()) {
             this.listAllPatients.forEach {
-                val ci = it.cedula.lowercase(Locale.getDefault())
-                val name =
-                    "${it.nombre} ${it.apellido}".lowercase(
-                        Locale.getDefault()
-                    )
-                if (ci.contains(searchText) || name.contains(searchText)) {
-                    this.listAllPatientsFilter.add(it)
+                if (it.cedula != null) {
+                    val ci = it.cedula.lowercase()
+                    val name = "${it.nombre} ${it.apellido}".lowercase()
+                    if (ci.contains(searchText) || name.contains(searchText)) {
+                        this.listAllPatientsFilter.add(it)
+                    }
                 }
             }
         } else {
@@ -213,18 +196,21 @@ class HomeActivityViewModel : ViewModel() {
         return false
     }
 
+    fun updateReservation(reservation: Reservation): Boolean {
+        return true
+    }
+
     fun onQueryTextChangePhysiotherapy(newText: String): Boolean {
         with(this.listAllPhysiotherapyFilter) { clear() }
-        val searchText = newText.lowercase(Locale.getDefault())
+        val searchText = newText.lowercase()
         if (searchText.isNotEmpty()) {
             this.listAllPhysiotherapy.forEach {
-                val ci = it.cedula.lowercase(Locale.getDefault())
-                val name =
-                    "${it.nombre} ${it.apellido}".lowercase(
-                        Locale.getDefault()
-                    )
-                if (ci.contains(searchText) || name.contains(searchText)) {
-                    this.listAllPhysiotherapyFilter.add(it)
+                if (it.cedula != null) {
+                    val ci = it.cedula.lowercase()
+                    val name = "${it.nombre} ${it.apellido}".lowercase()
+                    if (ci.contains(searchText) || name.contains(searchText)) {
+                        this.listAllPhysiotherapyFilter.add(it)
+                    }
                 }
             }
         } else {
@@ -233,10 +219,6 @@ class HomeActivityViewModel : ViewModel() {
         }
         this._arrayPhysiotherapy.value = this.listAllPhysiotherapyFilter
         return false
-    }
-
-    fun updateReservation(reservation: Reservation): Boolean {
-        return true
     }
 
     fun cancelReservation(position: Int) {
@@ -251,7 +233,91 @@ class HomeActivityViewModel : ViewModel() {
         _arrayPhysiotherapy.value = listAllPhysiotherapy
     }
 
-    fun resetReservations() {
-        _arrayReservations.value = listAllReservations
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun resetReservations(account: Person, fragmentActivity: FragmentActivity) {
+        val local = LocalDateTime.now()
+        val date = local.format(DateTimeFormatter.ISO_DATE).replace("-", "")
+
+        filterReservations(
+            physiotherapist = account,
+            startDate = date,
+            fragmentActivity = fragmentActivity
+        )
+
+        this._physiotherapy.value = account
+        this._patient.value = null
+        this._startDate.value = date
+
+        this._endDate.value = null
+    }
+
+    private fun filterReservations(
+        physiotherapist: Person? = null,
+        patient: Person? = null,
+        startDate: String? = null,
+        endDate: String? = null,
+        fragmentActivity: FragmentActivity
+    ) {
+        var physiotherapistEncode = ""
+        var patientEncode = ""
+        var startDateEncode = ""
+        var endDateEncode = ""
+
+        physiotherapistEncode = if (physiotherapist != null) {
+            Uri.encode("{\"idEmpleado\":{\"idPersona\":${physiotherapist.idPersona}},")
+        } else {
+            "%7B%22idEmpleado%22%3A%7B%22idPersona%22%3Anull%7D%2C"
+        }
+
+        patientEncode = if (patient != null) {
+            Uri.encode("\"idCliente\":{\"idPersona\":${patient.idPersona}},")
+        } else {
+            "%22idCliente%22%3A%7B%22idPersona%22%3Anull%7D%2C"
+        }
+
+        startDateEncode = if (startDate != null) {
+            Uri.encode("\"fechaDesdeCadena\":$startDate,")
+        } else {
+            "%22fechaDesdeCadena%22%3Anull%2C"
+        }
+
+        endDateEncode = if (endDate != null) {
+            Uri.encode("\"fechaHastaCadena\":$endDate}")
+        } else {
+            "%22fechaHastaCadena%22%3Anull%7D"
+        }
+
+        val encodeReservation =
+            physiotherapistEncode + patientEncode + startDateEncode + endDateEncode
+
+        println(encodeReservation)
+
+        val retrofit = RetrofitClient.getInstance()
+        val apiInterface = retrofit.create(ApiInterface::class.java)
+        val call = apiInterface.getReservations("reserva?ejemplo=$encodeReservation")
+
+        call.enqueue(object : Callback<Reservations> {
+            override fun onResponse(call: Call<Reservations>, response: Response<Reservations>) {
+                if (response.isSuccessful) {
+                    //your code for handaling success response
+                    listAllReservations.clear()
+                    response.body()?.let { listAllReservations.addAll(it.data) }
+
+                    _arrayReservations.value = listAllReservations
+
+                } else {
+                    Toast.makeText(
+                        fragmentActivity,
+                        "No se pudo obtener las reservaciones \n Error: ${response.raw().code}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Reservations>, t: Throwable) {
+                Toast.makeText(fragmentActivity, "Ocurrio un error", Toast.LENGTH_SHORT).show()
+            }
+        })
+
     }
 }

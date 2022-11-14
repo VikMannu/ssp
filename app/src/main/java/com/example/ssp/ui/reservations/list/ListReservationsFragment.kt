@@ -1,6 +1,7 @@
 package com.example.ssp.ui.reservations.list
 
 import android.annotation.SuppressLint
+import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +18,11 @@ import com.example.ssp.databinding.FragmentListReservationsBinding
 import com.example.ssp.model.Person
 import com.example.ssp.ui.home.HomeActivityViewModel
 import com.example.ssp.utils.UDatePicker
+import com.example.ssp.utils.UFormatter
 import com.example.ssp.utils.USharedPreferences
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ListReservationsFragment : Fragment() {
 
@@ -38,31 +43,53 @@ class ListReservationsFragment : Fragment() {
     ): View {
         this.binding = FragmentListReservationsBinding.inflate(inflater, container, false)
 
-        this.binding.recyclerViewReservations.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        this.binding.recyclerViewReservations.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        UDatePicker.createDatePickerDialog(this.binding.textViewSearchStartDate, this.binding.textViewStartDate,requireActivity())
-        UDatePicker.createDatePickerDialog(this.binding.textViewSearchEndDate, this.binding.textViewEndDate,requireActivity())
+        UDatePicker.createDatePickerDialog(
+            this.binding.textViewSearchStartDate,
+            this.binding.textViewStartDate,
+            requireActivity(),
+            viewModelActivity,
+            true
+        )
+
+        UDatePicker.createDatePickerDialog(
+            this.binding.textViewSearchEndDate,
+            this.binding.textViewEndDate,
+            requireActivity(),
+            viewModelActivity,
+            false
+        )
 
         this.binding.buttonClear.setOnClickListener {
-            this.clearSearchView()
-            this.viewModelActivity.resetReservations()
+            this.viewModelActivity.resetReservations(this.account, requireActivity())
         }
 
-        this.binding.textViewSearchEmployee.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(false))
+        this.binding.textViewSearchPhysiotherapist.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(
+                ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(
+                    false
+                )
+            )
         }
 
         this.binding.textViewSearchPatient.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(true))
-
+            NavHostFragment.findNavController(this).navigate(
+                ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(
+                    true
+                )
+            )
         }
 
         this.account = USharedPreferences.readAccount(activity)
-        println("Account: ${this.account}")
+        val local = LocalDateTime.now()
+        val date = local.format(DateTimeFormatter.ISO_DATE).replace("-", "")
 
         return this.binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -70,37 +97,59 @@ class ListReservationsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ListReservationsViewModel::class.java]
 
         viewModelActivity.arrayReservations.observe(viewLifecycleOwner) {
-            val adapter = ReservationAdapter(it, onListItemClick, editReservation, cancelReservation)
+            val adapter =
+                ReservationAdapter(it, onListItemClick, editReservation, cancelReservation)
             binding.recyclerViewReservations.adapter = adapter
         }
 
         viewModelActivity.physiotherapy.observe(viewLifecycleOwner) {
-            this.binding.textViewEmployee.text = "${it.nombre} ${it.apellido}"
+           if(it != null) {
+               this.binding.textViewEmployee.text = "${it.nombre} ${it.apellido}"
+           } else {
+               this.binding.textViewEmployee.text = "Todos"
+           }
         }
 
         viewModelActivity.patient.observe(viewLifecycleOwner) {
-            this.binding.textViewPatient.text = "${it.nombre} ${it.apellido}"
+            if(it != null) {
+                this.binding.textViewPatient.text = "${it.nombre} ${it.apellido}"
+            } else {
+                this.binding.textViewPatient.text = "Todos"
+            }
+        }
+
+        viewModelActivity.startDate.observe(viewLifecycleOwner) {
+            if(it != null) {
+                this.binding.textViewStartDate.text = UFormatter.date(it)
+            } else {
+                this.binding.textViewStartDate.text = "Todos"
+            }
+        }
+
+
+        viewModelActivity.endDate.observe(viewLifecycleOwner) {
+            if(it != null) {
+                this.binding.textViewEndDate.text = UFormatter.date(it)
+            } else {
+                this.binding.textViewEndDate.text = "Todos"
+            }
         }
     }
 
-    private val onListItemClick = fun (position: Int) {
+    private val onListItemClick = fun(position: Int) {
         println(position)
     }
 
-    private val editReservation = fun (position: Int) {
-        NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(viewModelActivity.getReservation(position)))
+    private val editReservation = fun(position: Int) {
+        NavHostFragment.findNavController(this).navigate(
+            ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(
+                viewModelActivity.getReservation(position)
+            )
+        )
     }
 
-    private val cancelReservation = fun (position: Int) {
+    private val cancelReservation = fun(position: Int) {
         viewModelActivity.cancelReservation(position)
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun clearSearchView() {
-        this.binding.textViewEmployee.text = "Todos"
-        this.binding.textViewPatient.text = "Todos"
-        this.binding.textViewStartDate.text = "Todos"
-        this.binding.textViewEndDate.text = "Todos"
     }
 
 }

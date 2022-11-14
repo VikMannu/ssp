@@ -1,6 +1,12 @@
 package com.example.ssp.model
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+
+data class Reservations(
+    @SerializedName("lista") val data: ArrayList<Reservation>,
+    @SerializedName("totalDatos") val totalData: Int
+) : Serializable
 
 data class Reservation(
     val idReserva: Int,

@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayoutEmployee"
+                android:id="@+id/constraintLayoutPhysiotherapist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -35,13 +35,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textViewSearchEmployee"
+                    android:id="@+id/textViewSearchPhysiotherapist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_search"
                     android:drawablePadding="@dimen/drawable_padding_list_reservations"
                     android:gravity="center"
-                    android:text="Empleado"
+                    android:text="Fisioterapeuta"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/textViewEmployee"
@@ -56,7 +56,7 @@
                     android:textAlignment="center"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewSearchEmployee"
+                    app:layout_constraintTop_toBottomOf="@id/textViewSearchPhysiotherapist"
                     tools:text="Victor Manuel Ayala Acosta" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/constraintLayoutEmployee"
+                app:layout_constraintLeft_toRightOf="@id/constraintLayoutPhysiotherapist"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -173,10 +173,10 @@
                     android:id="@+id/textViewEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/all"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewSearchEndDate"
-                    tools:text="09-05-1998" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewSearchEndDate" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
