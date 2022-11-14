@@ -52,19 +52,7 @@ class AddPatientFragment : Fragment() {
                 null
             )
 
-            val patient1 = Person(
-                null,
-                "Victor Manuel",
-                "Ayala Acosta",
-                "a@abc.com",
-                "0981234567",
-                "1234567-1",
-                "1234567",
-                "FISICA",
-                "1999-09-21 00:00:00",
-                null
-            )
-            activity?.let { fragmentActivity -> viewModel.addPatient(patient1, fragmentActivity) }
+            activity?.let { fragmentActivity -> viewModel.addPatient(patient, fragmentActivity) }
             activity?.onBackPressed()
         }
     }

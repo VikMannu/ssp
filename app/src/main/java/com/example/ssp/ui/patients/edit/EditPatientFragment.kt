@@ -73,19 +73,7 @@ class EditPatientFragment : Fragment() {
                 null
             )
 
-            val person1 = Person(
-                this.person.idPersona,
-                "Victor Manuel",
-                "Ayala Acosta",
-                "a@abc.com",
-                "0981 234 567",
-                "1234567-1",
-                "1234567",
-                "FISICA",
-                "1999-09-21 00:00:00",
-                null
-            )
-            viewModel.updatePatient(person1, requireActivity())
+            viewModel.updatePatient(patient, requireActivity())
             activity?.onBackPressed()
             activity?.onBackPressed()
         }
