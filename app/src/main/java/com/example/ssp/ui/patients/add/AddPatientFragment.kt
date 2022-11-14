@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.example.ssp.databinding.FragmentAddPatientBinding
+import com.example.ssp.model.Person
 import com.example.ssp.utils.UDatePicker
 
 class AddPatientFragment : Fragment() {
@@ -36,7 +37,36 @@ class AddPatientFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[AddPatientViewModel::class.java]
-        // TODO: Use the ViewModel
+
+        this.binding.buttonConfirm.setOnClickListener {
+            val person = Person(
+                null,
+                binding.editTextName.text.toString(),
+                binding.editTextSurname.text.toString(),
+                binding.editTextNumberPhone.text.toString(),
+                binding.editTextEmail.text.toString(),
+                binding.editTextRuc.text.toString(),
+                binding.editTextCI.text.toString(),
+                binding.editTextTypePerson.text.toString(),
+                "${binding.editTextBirthday.text} 00:00:00",
+                null
+            )
+
+            val person1 = Person(
+                null,
+                "Victor Manuel",
+                "Ayala Acosta",
+                "a@abc.com",
+                "0981 234 567",
+                "1234567-1",
+                "1234567",
+                "FISICA",
+                "1999-09-21 00:00:00",
+                null
+            )
+            activity?.let { fragmentActivity -> viewModel.addPatient(person1, fragmentActivity) }
+            activity?.onBackPressed()
+        }
     }
 
 }

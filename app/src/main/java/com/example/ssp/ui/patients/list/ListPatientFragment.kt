@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.R
 import com.example.ssp.adapter.PatientPerson
 import com.example.ssp.databinding.FragmentListPatientBinding
+import com.example.ssp.model.Person
 import com.example.ssp.ui.home.HomeActivity
 import com.example.ssp.ui.home.HomeActivityViewModel
 
@@ -54,8 +55,16 @@ class ListPatientFragment : Fragment() {
     }
 
     private fun onListItemClick(position: Int) {
-        NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(viewModelActivity.getPatient(position)))
+        val patient = viewModelActivity.getPatient(position)
+        verifyData(patient)
+        NavHostFragment.findNavController(this).navigate(ListPatientFragmentDirections.actionListPatientFragmentToPatientDetailsFragment(patient))
         viewModelActivity.resetPatients()
+    }
+
+    private fun verifyData(patient: Person) {
+        if (patient.nombre == null) {
+
+        }
     }
 
     @Deprecated("Deprecated in Java")

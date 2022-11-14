@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
 import com.example.ssp.databinding.FragmentEditPatientBinding
 import com.example.ssp.model.Person
+import com.example.ssp.ui.home.HomeActivityViewModel
 import com.example.ssp.ui.patients.details.PatientDetailsFragmentArgs
 import com.example.ssp.utils.UDatePicker
 
@@ -21,6 +23,7 @@ class EditPatientFragment : Fragment() {
 
     private lateinit var viewModel: EditPatientViewModel
     private lateinit var binding: FragmentEditPatientBinding
+    private val viewModelActivity: HomeActivityViewModel by activityViewModels()
     private lateinit var person: Person
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -54,6 +57,11 @@ class EditPatientFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[EditPatientViewModel::class.java]
-        // TODO: Use the ViewModel
+
+        this.binding.buttonConfirm.setOnClickListener {
+            viewModelActivity.loadPatients()
+            activity?.onBackPressed()
+            activity?.onBackPressed()
+        }
     }
 }

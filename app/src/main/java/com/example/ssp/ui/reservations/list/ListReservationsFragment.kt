@@ -14,8 +14,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.adapter.ReservationAdapter
 import com.example.ssp.databinding.FragmentListReservationsBinding
+import com.example.ssp.model.Person
 import com.example.ssp.ui.home.HomeActivityViewModel
 import com.example.ssp.utils.UDatePicker
+import com.example.ssp.utils.USharedPreferences
 
 class ListReservationsFragment : Fragment() {
 
@@ -26,6 +28,8 @@ class ListReservationsFragment : Fragment() {
     private lateinit var viewModel: ListReservationsViewModel
     private val viewModelActivity: HomeActivityViewModel by activityViewModels()
     private lateinit var binding: FragmentListReservationsBinding
+
+    private lateinit var account: Person
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -52,6 +56,9 @@ class ListReservationsFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(ListReservationsFragmentDirections.actionReservationsFragmentToSearchPersonFragment(true))
 
         }
+
+        this.account = USharedPreferences.readAccount(activity)
+        println("Account: ${this.account}")
 
         return this.binding.root
     }

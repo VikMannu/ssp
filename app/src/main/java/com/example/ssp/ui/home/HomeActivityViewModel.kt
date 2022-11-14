@@ -1,10 +1,16 @@
 package com.example.ssp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ssp.model.Person
 import com.example.ssp.model.Reservation
+import com.example.ssp.repository.ApiInterface
+import com.example.ssp.repository.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,14 +58,10 @@ class HomeActivityViewModel : ViewModel() {
 
     init {
         // Load Patients
-        listAllPatients.addAll(loadPatients())
-        listAllPatientsFilter.addAll(loadPatients())
-        _arrayPatients.value = listAllPatients
+        loadPatients()
 
         // Load Physiotherapy
-        listAllPhysiotherapy.addAll(loadPhysiotherapy())
-        listAllPhysiotherapyFilter.addAll(loadPhysiotherapy())
-        _arrayPhysiotherapy.value = listAllPhysiotherapy
+        loadPhysiotherapy()
 
         // Load Reservations
         listAllReservations.addAll(loadReservation())
@@ -67,70 +69,48 @@ class HomeActivityViewModel : ViewModel() {
         _arrayReservations.value = listAllReservations
     }
 
-    private fun loadPatients(): ArrayList<Person> {
-        val patient1 = Person(
-            1,
-            "Victor Manuel",
-            "Ayala Acosta",
-            "victor.ayala2a@gmail.com",
-            "0982485713",
-            "4692858-0",
-            "4692858",
-            "FISICA",
-            "1998-05-09 00:00:00",
-            true
-        )
-        val patient2 = Person(
-            2,
-            "Manuel Victor",
-            "Acosta Ayala",
-            "ayala.victor2a@gmail.com",
-            "0982485714",
-            "4692859-1",
-            "4692859",
-            "FISICA",
-            "1998-05-10 00:00:00",
-            true
-        )
+    fun loadPatients() {
+        val retrofit = RetrofitClient.getInstance()
+        val apiInterface = retrofit.create(ApiInterface::class.java)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiInterface.getAllPatients()
+                if (response.isSuccessful) {
+                    //your code for handaling success response
+                    listAllPatients.clear()
+                    response.body()?.data?.let { listAllPatients.addAll(it) }
 
-        val list = ArrayList<Person>()
-        list.add(patient1)
-        list.add(patient2)
+                    listAllPatientsFilter.clear()
+                    listAllPatientsFilter.addAll(listAllPatients)
 
-        return list
+                    _arrayPatients.value = listAllPatients
+                }
+            } catch (Ex: Exception) {
+                Log.e("Error", Ex.localizedMessage)
+            }
+        }
     }
 
-    private fun loadPhysiotherapy(): ArrayList<Person> {
-        val patient1 = Person(
-            1,
-            "Victor Manuel",
-            "Ayala Acosta",
-            "victor.ayala2a@gmail.com",
-            "0982485713",
-            "4692858-0",
-            "4692858",
-            "FISICA",
-            "1998-05-09 00:00:00",
-            true
-        )
-        val patient2 = Person(
-            2,
-            "Manuel Victor",
-            "Acosta Ayala",
-            "ayala.victor2a@gmail.com",
-            "0982485714",
-            "4692859-1",
-            "4692859",
-            "FISICA",
-            "1998-05-10 00:00:00",
-            true
-        )
+    private fun loadPhysiotherapy() {
+        val retrofit = RetrofitClient.getInstance()
+        val apiInterface = retrofit.create(ApiInterface::class.java)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = apiInterface.getAllPhysiotherapy()
+                if (response.isSuccessful) {
+                    //your code for handaling success response
+                    listAllPhysiotherapy.clear()
+                    response.body()?.data?.let { listAllPhysiotherapy.addAll(it) }
 
-        val list = ArrayList<Person>()
-        list.add(patient1)
-        list.add(patient2)
+                    listAllPhysiotherapyFilter.clear()
+                    listAllPhysiotherapyFilter.addAll(listAllPhysiotherapy)
 
-        return list
+                    _arrayPhysiotherapy.value = listAllPhysiotherapy
+                }
+            } catch (Ex: Exception) {
+                Log.e("Error", Ex.localizedMessage)
+            }
+        }
     }
 
     private fun loadReservation(): ArrayList<Reservation> {

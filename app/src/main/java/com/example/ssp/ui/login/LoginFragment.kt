@@ -2,22 +2,14 @@ package com.example.ssp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.ssp.databinding.FragmentLoginBinding
-import com.example.ssp.repository.ApiInterface
-import com.example.ssp.repository.RetrofitClient
 import com.example.ssp.ui.home.HomeActivity
-import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.ssp.utils.USharedPreferences
 
 class LoginFragment : Fragment() {
 
@@ -44,6 +36,8 @@ class LoginFragment : Fragment() {
 
         binding.buttonLogin.setOnClickListener {
             if (checkAllFields()) {
+                USharedPreferences.writeAccount(viewModel.getAccount(), activity)
+
                 it.visibility = View.INVISIBLE
                 binding.loading.visibility = View.VISIBLE
                 val intent = Intent(activity, HomeActivity::class.java)
@@ -51,42 +45,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-    }
-
-    private fun getUserList() {
-        val retrofit = RetrofitClient.getInstance()
-        val apiInterface = retrofit.create(ApiInterface::class.java)
-        lifecycleScope.launchWhenCreated {
-            try {
-                val response = apiInterface.getAllPhysiotherapy()
-                if (response.isSuccessful) {
-                    //your code for handaling success response
-                    println("Total: ${response.body()?.totalData}")
-                } else {
-                    Toast.makeText(
-                        activity,
-                        response.errorBody().toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            } catch (Ex: Exception) {
-                Log.e("Error", Ex.localizedMessage)
-            }
-        }
-    }
-
-    private fun showAlert(message: String) {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Error")
-        builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", null)
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun clean() {
-        this.binding.editTextEmail.setText("")
-        this.binding.editTextTextPassword.setText("")
     }
 
     private fun checkAllFields(): Boolean {

@@ -2,7 +2,9 @@ package com.example.ssp.ui.home
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var viewModel: ViewModel
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -41,6 +44,9 @@ class HomeActivity : AppCompatActivity() {
             setOf(R.id.listPatientFragment, R.id.reservationsFragment, R.id.dataSheetFragment)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+
+        viewModel = HomeActivityViewModel()
 
     }
 

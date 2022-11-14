@@ -69,12 +69,14 @@ class SearchPersonFragment : Fragment() {
     private fun onListItemClickPatient(position: Int) {
         hide()
         viewModelActivity.setPatient(viewModelActivity.getPatient(position))
+        viewModelActivity.resetReservations()
         activity?.onBackPressed()
     }
 
     private fun onListItemClickPhysiotherapy(position: Int) {
         hide()
         viewModelActivity.setPhysiotherapy(viewModelActivity.getPhysiotherapy(position))
+        viewModelActivity.resetPhysiotherapy()
         activity?.onBackPressed()
     }
 

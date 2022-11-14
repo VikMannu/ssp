@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel : ViewModel() {
 
     private val allPhysiotherapy = ArrayList<Person>()
+    private lateinit var account: Person
 
     init {
         getAllPhysiotherapy()
@@ -41,9 +42,14 @@ class LoginViewModel : ViewModel() {
     fun checkEmail(email: String): Boolean {
         for (physiotherapy in allPhysiotherapy) {
             if (email == physiotherapy.email) {
+                this.account = physiotherapy
                 return true
             }
         }
         return false
+    }
+
+    fun getAccount(): Person {
+        return this.account
     }
 }
