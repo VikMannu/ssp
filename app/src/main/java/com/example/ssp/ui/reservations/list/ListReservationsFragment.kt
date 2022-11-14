@@ -103,15 +103,15 @@ class ListReservationsFragment : Fragment() {
         }
 
         viewModelActivity.physiotherapy.observe(viewLifecycleOwner) {
-           if(it != null) {
-               this.binding.textViewEmployee.text = "${it.nombre} ${it.apellido}"
-           } else {
-               this.binding.textViewEmployee.text = "Todos"
-           }
+            if (it != null) {
+                this.binding.textViewEmployee.text = "${it.nombre} ${it.apellido}"
+            } else {
+                this.binding.textViewEmployee.text = "Todos"
+            }
         }
 
         viewModelActivity.patient.observe(viewLifecycleOwner) {
-            if(it != null) {
+            if (it != null) {
                 this.binding.textViewPatient.text = "${it.nombre} ${it.apellido}"
             } else {
                 this.binding.textViewPatient.text = "Todos"
@@ -119,7 +119,7 @@ class ListReservationsFragment : Fragment() {
         }
 
         viewModelActivity.startDate.observe(viewLifecycleOwner) {
-            if(it != null) {
+            if (it != null) {
                 this.binding.textViewStartDate.text = UFormatter.date(it)
             } else {
                 this.binding.textViewStartDate.text = "Todos"
@@ -128,7 +128,7 @@ class ListReservationsFragment : Fragment() {
 
 
         viewModelActivity.endDate.observe(viewLifecycleOwner) {
-            if(it != null) {
+            if (it != null) {
                 this.binding.textViewEndDate.text = UFormatter.date(it)
             } else {
                 this.binding.textViewEndDate.text = "Todos"
@@ -141,15 +141,22 @@ class ListReservationsFragment : Fragment() {
     }
 
     private val editReservation = fun(position: Int) {
-        NavHostFragment.findNavController(this).navigate(
-            ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(
-                viewModelActivity.getReservation(position)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NavHostFragment.findNavController(this).navigate(
+                ListReservationsFragmentDirections.actionReservationsFragmentToEditReservationFragment(
+                    viewModelActivity.getReservation(position)
+                )
             )
-        )
+        }
     }
 
     private val cancelReservation = fun(position: Int) {
-        viewModel.deleteReservation(viewModelActivity.getReservation(position), requireActivity())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            viewModel.deleteReservation(
+                viewModelActivity.getReservation(position),
+                requireActivity()
+            )
+        }
     }
 
 }

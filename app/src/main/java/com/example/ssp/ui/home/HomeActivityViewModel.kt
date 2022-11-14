@@ -50,7 +50,12 @@ class HomeActivityViewModel(
     val arrayReservations: LiveData<ArrayList<Reservation>>
         get() = _arrayReservations
 
+    private val _arrayReservationsFree = MutableLiveData<ArrayList<Reservation>>()
+    val arrayReservationsFree: LiveData<ArrayList<Reservation>>
+        get() = _arrayReservationsFree
+
     private val listAllReservations = ArrayList<Reservation>()
+    private val listAllReservationsFree = ArrayList<Reservation>()
 
     private val _physiotherapy = MutableLiveData<Person>()
     val physiotherapy: LiveData<Person>
@@ -370,5 +375,35 @@ class HomeActivityViewModel(
             }
         })
 
+    }
+
+    fun freeReservations(physiotherapist: Person, date: String, fragmentActivity: FragmentActivity) {
+        val retrofit = RetrofitClient.getInstance()
+        val apiInterface = retrofit.create(ApiInterface::class.java)
+        val url = "persona/${physiotherapist.idPersona}/agenda?fecha=$date&disponible=S"
+        val call = apiInterface.getReservations(url)
+
+        call.enqueue(object : Callback<Reservations> {
+            override fun onResponse(call: Call<Reservations>, response: Response<Reservations>) {
+                if (response.isSuccessful) {
+                    //your code for handaling success response
+                    listAllReservationsFree.clear()
+                    response.body()?.let { listAllReservationsFree.addAll(it.data) }
+
+                    _arrayReservationsFree.value = listAllReservationsFree
+
+                } else {
+                    Toast.makeText(
+                        fragmentActivity,
+                        "No se pudo obtener las reservaciones \n Error: ${response.raw().code}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Reservations>, t: Throwable) {
+                Toast.makeText(fragmentActivity, "Ocurrio un error", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

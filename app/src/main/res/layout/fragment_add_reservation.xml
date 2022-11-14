@@ -89,11 +89,11 @@
                     android:id="@+id/textViewPatient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Todos"
                     android:textAlignment="center"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewSearchPatient" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewSearchPatient"
+                    tools:text="Victor Manuel Ayala Acosta" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -148,9 +148,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:text="Buscar"
+            android:drawableRight="@drawable/ic_search_white"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayoutHead2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFreeReservations"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

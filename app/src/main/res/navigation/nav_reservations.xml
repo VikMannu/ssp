@@ -42,5 +42,9 @@
         android:id="@+id/addReservationFragment"
         android:name="com.example.ssp.ui.reservations.add.AddReservationFragment"
         android:label="Agregar Reservación"
-        tools:layout="@layout/fragment_add_reservation" />
+        tools:layout="@layout/fragment_add_reservation" >
+        <action
+            android:id="@+id/action_addReservationFragment_to_searchPersonFragment"
+            app:destination="@id/searchPersonFragment" />
+    </fragment>
 </navigation>
