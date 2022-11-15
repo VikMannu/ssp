@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ssp.R
-import com.example.ssp.adapter.PatientPerson
+import com.example.ssp.adapter.PersonAdapter
 import com.example.ssp.databinding.FragmentSearchPersonBinding
 import com.example.ssp.ui.home.HomeActivity
 import com.example.ssp.ui.home.HomeActivityViewModel
@@ -54,12 +54,12 @@ class SearchPersonFragment : Fragment() {
 
         if(this.isPatient) {
             viewModelActivity.arrayPatients.observe(viewLifecycleOwner) {
-                val adapter = PatientPerson(it) { position -> onListItemClickPatient(position) }
+                val adapter = PersonAdapter(it) { position -> onListItemClickPatient(position) }
                 binding.recyclerViewPerson.adapter = adapter
             }
         } else {
             viewModelActivity.arrayPhysiotherapy.observe(viewLifecycleOwner) {
-                val adapter = PatientPerson(it) { position -> onListItemClickPhysiotherapy(position) }
+                val adapter = PersonAdapter(it) { position -> onListItemClickPhysiotherapy(position) }
                 binding.recyclerViewPerson.adapter = adapter
             }
         }

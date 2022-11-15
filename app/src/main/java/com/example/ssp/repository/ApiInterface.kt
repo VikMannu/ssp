@@ -52,5 +52,10 @@ interface ApiInterface {
 
 
     // Data Sheets
+    @GET
+    fun getDataSheets(@Url url: String): Call<DataSheets>
+
+    @POST("fichaClinica")
+    fun postDataSheet(@Body dataSheet: DataSheet): Call<DataSheet>
 
 }

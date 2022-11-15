@@ -8,10 +8,10 @@ import com.example.ssp.model.Person
 
 class HomeActivityViewModelFactory(
     private val account: Person
-): ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(HomeActivityViewModel::class.java)) {
             return HomeActivityViewModel(account) as T
         }
         throw java.lang.IllegalArgumentException("Unknown ViewModel class")

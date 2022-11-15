@@ -8,7 +8,16 @@
 
     <fragment
         android:id="@+id/dataSheetFragment"
-        android:name="com.example.ssp.ui.dataSheet.DataSheetFragment"
+        android:name="com.example.ssp.ui.dataSheet.list.ListDataSheetFragment"
         android:label="Ficha Clinica"
-        tools:layout="@layout/fragment_data_sheet" />
+        tools:layout="@layout/fragment_list_data_sheet" >
+        <action
+            android:id="@+id/action_dataSheetFragment_to_addDataSheetFragment"
+            app:destination="@id/addDataSheetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDataSheetFragment"
+        android:name="com.example.ssp.ui.dataSheet.add.AddDataSheetFragment"
+        android:label="Agregar Ficha Clínica"
+        tools:layout="@layout/fragment_add_data_sheet" />
 </navigation>

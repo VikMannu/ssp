@@ -9,6 +9,6 @@ data class NewReservation(
     val fechaCadena: String,
     val horaInicioCadena: String,
     val horaFinCadena: String
-)
+) : Serializable
 
-data class PersonReservation (val idPersona: Int?): Serializable
+data class PersonReservation(val idPersona: Int?) : Serializable

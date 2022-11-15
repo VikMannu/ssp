@@ -5,24 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ssp.databinding.ItemDataSheetBinding
 import com.example.ssp.databinding.ItemPersonBinding
+import com.example.ssp.model.DataSheet
 import com.example.ssp.model.Person
 
-class PatientPerson(
-    private val patientList: ArrayList<Person>,
+class DataSheetAdapter(
+    private val dataSheetList: ArrayList<DataSheet>,
     private val onItemClicked: (position: Int) -> Unit
 ) :
-    RecyclerView.Adapter<PatientPerson.PatientViewHolder>() {
+    RecyclerView.Adapter<DataSheetAdapter.PatientViewHolder>() {
     inner class PatientViewHolder(
-        private val binding: ItemPersonBinding,
+        private val binding: ItemDataSheetBinding,
         private val onItemClicked: (position: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         @SuppressLint("SetTextI18n")
-        fun bindItem(patient: Person) {
-            this.binding.textViewName.text = "${patient.nombre} ${patient.apellido}"
-            this.binding.textViewCI.text = patient.cedula
-            this.binding.textViewNumberPhone.text = patient.telefono
+        fun bindItem(dataSheet: DataSheet) {
+            this.binding.textViewReasonConsultation.text = "Motivo de Consulta: ${dataSheet.motivoConsulta}"
+            this.binding.textViewDiagnosis.text = "Diagnostico: ${dataSheet.diagnostico}"
+            this.binding.textViewObservation.text = "Observacion: ${dataSheet.observacion}"
+            this.binding.textViewIDEmployee.text = "IDEmpleado: ${dataSheet.idEmpleado?.idPersona}"
+            this.binding.textViewIDClient.text = "IDCliente: ${dataSheet.idCliente?.idPersona}"
+            this.binding.textViewIDTypeProduct.text = "IDTProducto: ${dataSheet.idTipoProducto?.idTipoProducto}"
         }
 
         init {
@@ -37,7 +42,7 @@ class PatientPerson(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientViewHolder {
         return PatientViewHolder(
-            ItemPersonBinding.inflate(
+            ItemDataSheetBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -46,11 +51,10 @@ class PatientPerson(
     }
 
     override fun onBindViewHolder(holder: PatientViewHolder, position: Int) {
-        val patient = patientList[position]
-        holder.bindItem(patient)
+        holder.bindItem(dataSheetList[position])
     }
 
     override fun getItemCount(): Int {
-        return patientList.size
+        return dataSheetList.size
     }
 }
