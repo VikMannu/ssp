@@ -242,7 +242,7 @@ class HomeActivityViewModel(
         if (searchText.isNotEmpty()) {
             this.listAllPatients.forEach {
                 if (it.cedula != null) {
-                    val ci = it.cedula.lowercase()
+                    val ci = it.cedula!!.lowercase()
                     val name = "${it.nombre} ${it.apellido}".lowercase()
                     if (ci.contains(searchText) || name.contains(searchText)) {
                         this.listAllPatientsFilter.add(it)
@@ -267,7 +267,7 @@ class HomeActivityViewModel(
         if (searchText.isNotEmpty()) {
             this.listAllPhysiotherapy.forEach {
                 if (it.cedula != null) {
-                    val ci = it.cedula.lowercase()
+                    val ci = it.cedula!!.lowercase()
                     val name = "${it.nombre} ${it.apellido}".lowercase()
                     if (ci.contains(searchText) || name.contains(searchText)) {
                         this.listAllPhysiotherapyFilter.add(it)

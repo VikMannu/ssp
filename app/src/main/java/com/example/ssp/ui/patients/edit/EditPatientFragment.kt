@@ -45,7 +45,7 @@ class EditPatientFragment : Fragment() {
         this.binding.editTextCI.setText(this.person.cedula)
         this.binding.editTextRuc.setText(this.person.ruc)
         this.binding.editTextTypePerson.setText(this.person.tipoPersona)
-        this.binding.editTextBirthday.setText(this.person.fechaNacimiento.split(" ")[0])
+        this.binding.editTextBirthday.setText(this.person.fechaNacimiento?.split(" ")?.get(0) ?: "")
 
         UDatePicker.createDatePickerDialog(this.binding.editTextBirthday, requireActivity())
 

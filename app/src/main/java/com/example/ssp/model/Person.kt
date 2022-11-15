@@ -10,14 +10,14 @@ data class People(
 
 data class Person(
     var idPersona: Int?,
-    var nombre: String,
-    var apellido: String,
-    var email: String,
-    var telefono: String,
-    var ruc: String,
-    var cedula: String,
-    var tipoPersona: String,
-    var fechaNacimiento: String,
+    var nombre: String?,
+    var apellido: String?,
+    var email: String?,
+    var telefono: String?,
+    var ruc: String?,
+    var cedula: String?,
+    var tipoPersona: String?,
+    var fechaNacimiento: String?,
     var soloUsuariosDelSistema: Boolean?
 ) : Serializable {
     override fun hashCode(): Int {

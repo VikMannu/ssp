@@ -38,7 +38,7 @@ class PatientDetailsFragment : Fragment() {
         this.binding.textViewCI.text = this.person.cedula
         this.binding.textViewRuc.text = this.person.ruc
         this.binding.textViewTypePerson.text = this.person.tipoPersona
-        this.binding.textViewBirthday.text = this.person.fechaNacimiento.split(" ")[0]
+        this.binding.textViewBirthday.text = this.person.fechaNacimiento?.split(" ")?.get(0) ?: ""
 
         this.binding.buttonEdit.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(PatientDetailsFragmentDirections.actionPatientDetailsFragmentToEditPatientFragment(this.person))

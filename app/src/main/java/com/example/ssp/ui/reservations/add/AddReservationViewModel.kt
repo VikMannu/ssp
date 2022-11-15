@@ -4,8 +4,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.ssp.model.NewReservation
-import com.example.ssp.model.Person
-import com.example.ssp.model.PersonReservation
+import com.example.ssp.model.PersonBody
 import com.example.ssp.model.Reservation
 import com.example.ssp.repository.ApiInterface
 import com.example.ssp.repository.RetrofitClient
@@ -19,8 +18,8 @@ class AddReservationViewModel : ViewModel() {
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
         val body = NewReservation(
-            PersonReservation(reservation.idEmpleado.idPersona),
-            PersonReservation(reservation.idCliente.idPersona),
+            PersonBody(reservation.idEmpleado.idPersona),
+            PersonBody(reservation.idCliente.idPersona),
             reservation.fechaCadena,
             reservation.horaInicioCadena,
             reservation.horaFinCadena
