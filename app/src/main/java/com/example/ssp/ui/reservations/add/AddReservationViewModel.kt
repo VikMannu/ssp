@@ -3,7 +3,9 @@ package com.example.ssp.ui.reservations.add
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import com.example.ssp.model.NewReservation
 import com.example.ssp.model.Person
+import com.example.ssp.model.PersonReservation
 import com.example.ssp.model.Reservation
 import com.example.ssp.repository.ApiInterface
 import com.example.ssp.repository.RetrofitClient
@@ -16,10 +18,18 @@ class AddReservationViewModel : ViewModel() {
     fun addReservation(reservation: Reservation, fragmentActivity: FragmentActivity) {
         val retrofit = RetrofitClient.getInstance()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call = apiInterface.postReservation(reservation)
+        val body = NewReservation(
+            PersonReservation(reservation.idEmpleado.idPersona),
+            PersonReservation(reservation.idCliente.idPersona),
+            reservation.fechaCadena,
+            reservation.horaInicioCadena,
+            reservation.horaFinCadena
+        )
 
-        call.enqueue(object : Callback<Reservation> {
-            override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
+        val call = apiInterface.postReservation(body)
+
+        call.enqueue(object : Callback<NewReservation> {
+            override fun onResponse(call: Call<NewReservation>, response: Response<NewReservation>) {
                 if (response.isSuccessful) {
                     //your code for handaling success response
                     Toast.makeText(fragmentActivity, "Se cargo correctamente", Toast.LENGTH_SHORT).show()
@@ -28,7 +38,7 @@ class AddReservationViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<Reservation>, t: Throwable) {
+            override fun onFailure(call: Call<NewReservation>, t: Throwable) {
                 Toast.makeText(fragmentActivity, "Ocurrio un error", Toast.LENGTH_SHORT).show()
             }
         })

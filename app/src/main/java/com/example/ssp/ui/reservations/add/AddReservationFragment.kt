@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -108,8 +109,14 @@ class AddReservationFragment : Fragment() {
     private val addReservation = @RequiresApi(Build.VERSION_CODES.O)
     fun(position: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            viewModel.addReservation(viewModelActivity.getFreeReservation(position), requireActivity())
-            viewModelActivity.freeReservations(this.physiotherapist, this.binding.textViewDate.text.toString().replace("-", ""), requireActivity())
+            if(this.patient != null) {
+                val reservation = viewModelActivity.getFreeReservation(position)
+                reservation.idCliente = this.patient
+                viewModel.addReservation(reservation, requireActivity())
+                viewModelActivity.freeReservations(this.physiotherapist, this.binding.textViewDate.text.toString().replace("-", ""), requireActivity())
+            } else {
+                Toast.makeText(requireContext(), "Requiere selecionar un paciente", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -9,7 +9,7 @@ data class People(
 ) : Serializable
 
 data class Person(
-    val idPersona: Int?,
+    var idPersona: Int?,
     var nombre: String,
     var apellido: String,
     var email: String,

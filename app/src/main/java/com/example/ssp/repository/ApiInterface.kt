@@ -1,9 +1,6 @@
 package com.example.ssp.repository
 
-import com.example.ssp.model.People
-import com.example.ssp.model.Person
-import com.example.ssp.model.Reservation
-import com.example.ssp.model.Reservations
+import com.example.ssp.model.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -29,6 +26,7 @@ interface ApiInterface {
     @PUT("persona")
     fun putPerson(@Body person: Person): Call<Person>
 
+    @Headers("Content-Type: application/json", "usuario: usuario1")
     @DELETE("persona/{id}")
     fun deletePerson(@Path("id") idPerson: Int): Call<Person>
 
@@ -40,16 +38,17 @@ interface ApiInterface {
     @GET
     fun getFreeReservations(@Url url:String): Call<ArrayList<Reservation>>
 
-    @Headers("Content-Type: application/json", "usuario: gustavo")
+    @Headers("Content-Type: application/json", "usuario: usuario1")
     @POST("reserva")
-    fun postReservation(@Body reservation: Reservation): Call<Reservation>
+    fun postReservation(@Body reservation: NewReservation): Call<NewReservation>
 
-    @Headers("Content-Type: application/json")
+    @Headers("Content-Type: application/json", "usuario: usuario1")
     @PUT("reserva")
     fun putReservation(@Body reservation: Reservation): Call<Reservation>
 
+    @Headers("Content-Type: application/json", "usuario: usuario1")
     @DELETE("reserva/{id}")
-    fun deleteReservation(@Path("id") idReservation: Int): Call<Reservation>
+    fun deleteReservation(@Path("id") idReservation: Int): Call<NewReservation>
 
 
     // Data Sheets

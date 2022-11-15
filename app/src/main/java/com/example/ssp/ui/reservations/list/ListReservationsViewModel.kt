@@ -3,6 +3,7 @@ package com.example.ssp.ui.reservations.list
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import com.example.ssp.model.NewReservation
 import com.example.ssp.model.Reservation
 import com.example.ssp.repository.ApiInterface
 import com.example.ssp.repository.RetrofitClient
@@ -18,8 +19,8 @@ class ListReservationsViewModel : ViewModel() {
         val apiInterface = retrofit.create(ApiInterface::class.java)
         val call = apiInterface.deleteReservation(reservation.idReserva)
 
-        call.enqueue(object : Callback<Reservation> {
-            override fun onResponse(call: Call<Reservation>, response: Response<Reservation>) {
+        call.enqueue(object : Callback<NewReservation> {
+            override fun onResponse(call: Call<NewReservation>, response: Response<NewReservation>) {
                 if (response.isSuccessful) {
                     //your code for handaling success response
                     Toast.makeText(
@@ -37,7 +38,7 @@ class ListReservationsViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<Reservation>, t: Throwable) {
+            override fun onFailure(call: Call<NewReservation>, t: Throwable) {
                 Toast.makeText(fragmentActivity, "Ocurrio un error", Toast.LENGTH_SHORT).show()
             }
         })
